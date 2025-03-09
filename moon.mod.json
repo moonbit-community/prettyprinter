@@ -9,5 +9,6 @@
     "utils",
     "string"
   ],
-  "description": "pretty printer for moonbit"
+  "description": "pretty printer for moonbit",
+  "source": "src"
 }
