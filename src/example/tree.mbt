@@ -21,23 +21,20 @@ pub impl[A : @pp.Pretty] @pp.Pretty for Tree[A] with pretty(tree : Tree[A]) {
   }
 }
 
+///|
 test {
-  let tree = Node(
-    [
-      Leaf(100),
-      Leaf(200),
-      Leaf(300000000),
-      Node(
-        [
-          Leaf(400),
-          Leaf(500),
-          Node([Leaf(6000000), Leaf(7000000), Leaf(80000000), Leaf(80000001)]),
-          Leaf(900),
-        ],
-      ),
-      Leaf(1000),
-    ],
-  )
+  let tree = Node([
+    Leaf(100),
+    Leaf(200),
+    Leaf(300000000),
+    Node([
+      Leaf(400),
+      Leaf(500),
+      Node([Leaf(6000000), Leaf(7000000), Leaf(80000000), Leaf(80000001)]),
+      Leaf(900),
+    ]),
+    Leaf(1000),
+  ])
   inspect!(
     @pp.render(tree, width=50),
     content=
