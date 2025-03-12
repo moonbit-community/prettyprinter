@@ -92,7 +92,7 @@ pub fn string(str : String) -> Document {
   surround(char('"'), char('"'), text(str))
 }
 
-///| print each docuemnts in the same line if it fits, insert a line break otherwise.
+///| print each documents in the same line if it fits, insert a line break otherwise.
 /// 
 /// ```
 /// let words = [
