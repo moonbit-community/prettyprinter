@@ -128,5 +128,5 @@ fn render_document(width : Int, doc : Document) -> String {
   }
 
   aux(0, true, doc)
-  buf.to_unchecked_string()
+  buf.contents().to_unchecked_string()
 }
