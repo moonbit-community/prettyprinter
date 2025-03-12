@@ -1,0 +1,14 @@
+package Yoorkin/prettyprinter/example
+
+alias @Yoorkin/prettyprinter as @prettyprinter
+
+// Values
+
+// Types and methods
+type Tree[A]
+impl[A : @prettyprinter.Pretty] @prettyprinter.Pretty for Tree[A]
+
+// Type aliases
+
+// Traits
+

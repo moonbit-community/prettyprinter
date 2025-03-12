@@ -1,0 +1,115 @@
+package Yoorkin/prettyprinter
+
+alias @moonbitlang/core/buffer as @buffer
+alias @moonbitlang/core/deque as @deque
+alias @moonbitlang/core/immut/array as @array
+alias @moonbitlang/core/immut/list as @list
+alias @moonbitlang/core/priority_queue as @priority_queue
+alias @moonbitlang/core/queue as @queue
+
+// Values
+fn braces(Document) -> Document
+
+fn brackets(Document) -> Document
+
+fn char(Char) -> Document
+
+fn concat(Document, Document) -> Document
+
+let empty : Document
+
+fn flow(Array[Document]) -> Document
+
+fn group(Document) -> Document
+
+let hardline : Document
+
+let line : Document
+
+fn list(Array[Document]) -> Document
+
+fn nest(indent~ : Int = .., Document) -> Document
+
+fn op_add(Document, Document) -> Document
+
+fn parens(Document) -> Document
+
+fn pretty[A : Pretty](A) -> Document
+
+fn render[A : Pretty](A, width~ : Int = ..) -> String
+
+fn separate(Document, Array[Document]) -> Document
+
+fn separate_map[A](Document, Array[A], (A) -> Document) -> Document
+
+let softline : Document
+
+let space : Document
+
+fn string(String) -> Document
+
+fn surround(Document, Document, Document) -> Document
+
+fn switch(Document, Document) -> Document
+
+fn text(String) -> Document
+
+fn to_string(Document) -> String
+
+// Types and methods
+type Document
+impl Document {
+  op_add(Self, Self) -> Self
+  to_string(Self) -> String
+}
+impl Pretty for Document
+impl Show for Document
+
+// Type aliases
+
+// Traits
+pub(open) trait Pretty {
+  pretty(Self) -> Document
+}
+impl Pretty for Unit
+impl Pretty for Bool
+impl Pretty for Byte
+impl Pretty for Char
+impl Pretty for Int
+impl Pretty for Int64
+impl Pretty for UInt
+impl Pretty for UInt64
+impl Pretty for Float
+impl Pretty for Double
+impl Pretty for String
+impl[A : Pretty] Pretty for A?
+impl[A : Pretty, B : Pretty] Pretty for Result[A, B]
+impl[A : Pretty] Pretty for FixedArray[A]
+impl Pretty for Bytes
+impl Pretty for @buffer.T
+impl[A : Pretty] Pretty for Array[A]
+impl Pretty for Json
+impl[A : Pretty, B : Pretty] Pretty for Map[A, B]
+impl[A : Pretty] Pretty for Set[A]
+impl[A : Pretty] Pretty for @deque.T[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/hashmap.T[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/hashset.T[A]
+impl[A : Pretty] Pretty for @array.T[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/hashmap.T[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/immut/hashset.T[A]
+impl[A : Pretty] Pretty for @list.T[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.T[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.T[A]
+impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A]
+impl[A : Pretty] Pretty for @queue.T[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/sorted_map.T[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/sorted_set.T[A]
+impl[A : Pretty, B : Pretty] Pretty for (A, B)
+impl[A : Pretty, B : Pretty, C : Pretty] Pretty for (A, B, C)
+impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty] Pretty for (A, B, C, D)
+impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty] Pretty for (A, B, C, D, E)
+impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty] Pretty for (A, B, C, D, E, F)
+impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty] Pretty for (A, B, C, D, E, F, G)
+impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty, H : Pretty] Pretty for (A, B, C, D, E, F, G, H)
+impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty, H : Pretty, I : Pretty] Pretty for (A, B, C, D, E, F, G, H, I)
+
