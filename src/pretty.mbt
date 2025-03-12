@@ -31,6 +31,11 @@ pub impl Pretty for Bool with pretty(b) {
   text(b.to_string())
 }
 
+///| Pretty print an Int16.
+pub impl Pretty for Int16 with pretty(i) {
+  text(i.to_string())
+}
+
 ///| Pretty print an Int.
 pub impl Pretty for Int with pretty(i) {
   text(i.to_string())
@@ -38,6 +43,11 @@ pub impl Pretty for Int with pretty(i) {
 
 ///| Pretty print an Int64.
 pub impl Pretty for Int64 with pretty(i) {
+  text(i.to_string())
+}
+
+///| Pretty print an UInt16.
+pub impl Pretty for UInt16 with pretty(i) {
   text(i.to_string())
 }
 
