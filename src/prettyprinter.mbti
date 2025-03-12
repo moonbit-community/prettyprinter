@@ -76,8 +76,10 @@ impl Pretty for Bool
 impl Pretty for Byte
 impl Pretty for Char
 impl Pretty for Int
+impl Pretty for Int16
 impl Pretty for Int64
 impl Pretty for UInt
+impl Pretty for UInt16
 impl Pretty for UInt64
 impl Pretty for Float
 impl Pretty for Double
