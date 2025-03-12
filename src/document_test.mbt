@@ -1,3 +1,4 @@
+///|
 test "pretty group" {
   let doc = group(
     @prettyprinter.text("hello") +

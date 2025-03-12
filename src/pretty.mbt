@@ -1,9 +1,4 @@
 ///|
-pub(open) trait Pretty {
-  pretty(Self) -> Document
-}
-
-///|
 pub fn pretty[A : Pretty](x : A) -> Document {
   x.pretty()
 }
@@ -27,37 +22,59 @@ pub fn render[A : Pretty](document : A, width~ : Int = 80) -> String {
 /// ```
 /// pretty("Hello, World!") |> inspect!(content="\"Hello, World!\"")
 /// ```
-pub impl Pretty for String with pretty(str) { string(str) }
+pub impl Pretty for String with pretty(str) {
+  string(str)
+}
 
 ///| Pretty print a Bool.
-pub impl Pretty for Bool with pretty(b) { text(b.to_string()) }
+pub impl Pretty for Bool with pretty(b) {
+  text(b.to_string())
+}
 
 ///| Pretty print an Int.
-pub impl Pretty for Int with pretty(i) { text(i.to_string()) }
+pub impl Pretty for Int with pretty(i) {
+  text(i.to_string())
+}
 
 ///| Pretty print an Int64.
-pub impl Pretty for Int64 with pretty(i) { text(i.to_string()) }
+pub impl Pretty for Int64 with pretty(i) {
+  text(i.to_string())
+}
 
 ///| Pretty print a UInt.
-pub impl Pretty for UInt with pretty(i) { text(i.to_string()) }
+pub impl Pretty for UInt with pretty(i) {
+  text(i.to_string())
+}
 
 ///| Pretty print a UInt64.
-pub impl Pretty for UInt64 with pretty(i) { text(i.to_string()) }
+pub impl Pretty for UInt64 with pretty(i) {
+  text(i.to_string())
+}
 
 ///| Pretty print a character.
-pub impl Pretty for Char with pretty(c) { char(c) }
+pub impl Pretty for Char with pretty(c) {
+  char(c)
+}
 
 ///| Pretty print a double.
-pub impl Pretty for Double with pretty(d) { text(d.to_string()) }
+pub impl Pretty for Double with pretty(d) {
+  text(d.to_string())
+}
 
 ///| Pretty print a float.
-pub impl Pretty for Float with pretty(f) { text(f.to_string()) }
+pub impl Pretty for Float with pretty(f) {
+  text(f.to_string())
+}
 
 ///| Pretty print a document.
-pub impl Pretty for Document with pretty(doc) { doc }
+pub impl Pretty for Document with pretty(doc) {
+  doc
+}
 
 ///| Pretty print a unit value.
-pub impl Pretty for Unit with pretty(_unit) { text("()") }
+pub impl Pretty for Unit with pretty(_unit) {
+  text("()")
+}
 
 ///| Pretty print an array.
 /// 
@@ -242,7 +259,9 @@ pub impl[A : Pretty] Pretty for Set[A] with pretty(set) {
 }
 
 ///|
-pub impl Pretty for Byte with pretty(byte) { text(byte.to_string()) }
+pub impl Pretty for Byte with pretty(byte) {
+  text(byte.to_string())
+}
 
 ///| Pretty print a Bytes
 /// 
@@ -393,7 +412,9 @@ pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A] with pretty(
 }
 
 ///|
-pub impl Pretty for @buffer.T with pretty(buffer) { buffer.to_bytes().pretty() }
+pub impl Pretty for @buffer.T with pretty(buffer) {
+  buffer.to_bytes().pretty()
+}
 
 ///|
 pub impl[A : Pretty] Pretty for @deque.T[A] with pretty(deque) {

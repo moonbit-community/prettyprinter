@@ -1,3 +1,4 @@
+///|
 test "pretty array" {
   let ls = [
     "aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbb", "1111111111111111222222", "3333333333333333",
@@ -17,6 +18,7 @@ test "pretty array" {
   )
 }
 
+///|
 test "pretty map" {
   let map = {
     "1000": Some([1, 2, 3, 4, 5]),
@@ -44,6 +46,7 @@ test "pretty map" {
   )
 }
 
+///|
 test "json" {
   let json : Json = {
     "key1": 1.0,
