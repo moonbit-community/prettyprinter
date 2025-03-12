@@ -7,8 +7,8 @@ fn Requirement::op_add(x : Requirement, y : Requirement) -> Requirement {
 }
 
 ///|
-fn Requirement::compare(x : Requirement, y : Requirement) -> Int {
-  match (x, y) {
+impl Compare for Requirement with compare(self, other) {
+  match (self, other) {
     (Space(a), Space(b)) => a - b
     (Infinite, _) => 1
     (_, Infinite) => -1
@@ -16,8 +16,8 @@ fn Requirement::compare(x : Requirement, y : Requirement) -> Int {
 }
 
 ///|
-fn Requirement::op_equal(x : Requirement, y : Requirement) -> Bool {
-  match (x, y) {
+impl Eq for Requirement with op_equal(self, other) {
+  match (self, other) {
     (Space(a), Space(b)) => a == b
     (Infinite, Infinite) => true
     _ => false

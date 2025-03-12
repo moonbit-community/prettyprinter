@@ -1,5 +1,5 @@
 ///|
-enum Requirement {
+priv enum Requirement {
   Space(Int)
   Infinite
 }
