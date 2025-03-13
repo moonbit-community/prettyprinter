@@ -90,6 +90,8 @@ impl[A : Pretty] Pretty for FixedArray[A]
 impl Pretty for Bytes
 impl Pretty for @buffer.T
 impl[A : Pretty] Pretty for Array[A]
+impl[A : Pretty] Pretty for Iter[A]
+impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B]
 impl Pretty for Json
 impl[A : Pretty, B : Pretty] Pretty for Map[A, B]
 impl[A : Pretty] Pretty for Set[A]
