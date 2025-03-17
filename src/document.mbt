@@ -93,7 +93,7 @@ pub impl Show for Document with output(self, buf) {
 
 ///|
 fn render_document(width : Int, doc : Document) -> String {
-  let buf = @buffer.new()
+  let buf = StringBuilder::new()
   let mut column = 0
   fn aux(indent, flat_mode, doc) {
     match doc {
@@ -128,5 +128,5 @@ fn render_document(width : Int, doc : Document) -> String {
   }
 
   aux(0, true, doc)
-  buf.contents().to_unchecked_string()
+  buf.to_string()
 }
