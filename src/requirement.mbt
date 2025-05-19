@@ -1,6 +1,6 @@
 ///|
-fn Requirement::op_add(x : Requirement, y : Requirement) -> Requirement {
-  match (x, y) {
+impl Add for Requirement with op_add(self, other) {
+  match (self, other) {
     (Space(a), Space(b)) => Space(a + b)
     _ => Infinite
   }

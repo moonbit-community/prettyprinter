@@ -77,7 +77,7 @@ pub fn concat(l : Document, r : Document) -> Document {
 }
 
 ///|
-pub fn op_add(self : Document, other : Document) -> Document {
+pub impl Add for Document with op_add(self, other) {
   concat(self, other)
 }
 
