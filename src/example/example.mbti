@@ -1,6 +1,8 @@
-package Yoorkin/prettyprinter/example
+package "Yoorkin/prettyprinter/example"
 
-alias @Yoorkin/prettyprinter as @prettyprinter
+import(
+  "Yoorkin/prettyprinter"
+)
 
 // Values
 
