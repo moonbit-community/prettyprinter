@@ -192,7 +192,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
 /// )
 /// ``` 
 pub impl Pretty for Json with pretty(json : Json) -> Document {
-  fn pair(pair : (String, @json.JsonValue)) -> Document {
+  fn pair(pair : (String, Json)) -> Document {
     string(pair.0) + text(":") + space + Pretty::pretty(pair.1)
   }
 
