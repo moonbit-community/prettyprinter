@@ -35,13 +35,13 @@ fn nest(indent~ : Int = .., Document) -> Document
 
 fn parens(Document) -> Document
 
-fn pretty[A : Pretty](A) -> Document
+fn[A : Pretty] pretty(A) -> Document
 
-fn render[A : Pretty](A, width~ : Int = ..) -> String
+fn[A : Pretty] render(A, width~ : Int = ..) -> String
 
 fn separate(Document, Array[Document]) -> Document
 
-fn separate_map[A](Document, Array[A], (A) -> Document) -> Document
+fn[A] separate_map(Document, Array[A], (A) -> Document) -> Document
 
 let softline : Document
 
@@ -59,9 +59,7 @@ fn to_string(Document) -> String
 
 // Types and methods
 type Document
-impl Document {
-  to_string(Self) -> String
-}
+fn Document::to_string(Self) -> String
 impl Pretty for Document
 impl Add for Document
 impl Show for Document

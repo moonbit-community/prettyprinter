@@ -1,5 +1,5 @@
 ///|
-pub fn pretty[A : Pretty](x : A) -> Document {
+pub fn[A : Pretty] pretty(x : A) -> Document {
   x.pretty()
 }
 
@@ -13,7 +13,7 @@ pub fn pretty[A : Pretty](x : A) -> Document {
 /// # Returns
 ///
 /// The rendered string.
-pub fn render[A : Pretty](document : A, width~ : Int = 80) -> String {
+pub fn[A : Pretty] render(document : A, width~ : Int = 80) -> String {
   render_document(width, document.pretty())
 }
 
@@ -192,7 +192,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
 /// )
 /// ``` 
 pub impl Pretty for Json with pretty(json : Json) -> Document {
-  fn pair(pair : (String, @json.JsonValue)) -> Document {
+  fn pair(pair : (String, Json)) -> Document {
     string(pair.0) + text(":") + space + Pretty::pretty(pair.1)
   }
 
@@ -423,27 +423,27 @@ pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A] with pretty(
 
 ///|
 pub impl Pretty for @buffer.T with pretty(buffer) {
-  buffer.to_bytes().pretty()
+  buffer.to_bytes() |> pretty
 }
 
 ///|
 pub impl[A : Pretty] Pretty for @deque.T[A] with pretty(deque) {
-  deque.iter().to_array().pretty()
+  deque.iter().to_array() |> pretty
 }
 
 ///|
 pub impl[A : Pretty] Pretty for @immut/array.T[A] with pretty(array) {
-  array.to_array().pretty()
+  array.to_array() |> pretty
 }
 
 ///|
 pub impl[A : Pretty] Pretty for Iter[A] with pretty(self) {
-  self.to_array().pretty()
+  self.to_array() |> pretty
 }
 
 ///|
 pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with pretty(self) {
-  self.to_array().pretty()
+  self.to_array() |> pretty
 }
 
 ///|
