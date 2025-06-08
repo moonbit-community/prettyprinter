@@ -59,9 +59,7 @@ fn to_string(Document) -> String
 
 // Types and methods
 type Document
-impl Document {
-  to_string(Self) -> String
-}
+fn Document::to_string(Self) -> String
 impl Pretty for Document
 impl Add for Document
 impl Show for Document
