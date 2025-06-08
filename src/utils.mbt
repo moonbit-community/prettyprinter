@@ -17,7 +17,7 @@
 /// let doc = separate_map(text(","), [1,2,3], pretty)
 /// inspect!(doc, content="1,2,3") 
 /// ```
-pub fn separate_map[A](
+pub fn[A] separate_map(
   sep : Document,
   elems : Array[A],
   f : (A) -> Document

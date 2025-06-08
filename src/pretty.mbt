@@ -1,5 +1,5 @@
 ///|
-pub fn pretty[A : Pretty](x : A) -> Document {
+pub fn[A : Pretty] pretty(x : A) -> Document {
   x.pretty()
 }
 
@@ -13,7 +13,7 @@ pub fn pretty[A : Pretty](x : A) -> Document {
 /// # Returns
 ///
 /// The rendered string.
-pub fn render[A : Pretty](document : A, width~ : Int = 80) -> String {
+pub fn[A : Pretty] render(document : A, width~ : Int = 80) -> String {
   render_document(width, document.pretty())
 }
 
