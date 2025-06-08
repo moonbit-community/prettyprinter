@@ -423,27 +423,27 @@ pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A] with pretty(
 
 ///|
 pub impl Pretty for @buffer.T with pretty(buffer) {
-  buffer.to_bytes().pretty()
+  buffer.to_bytes() |> pretty
 }
 
 ///|
 pub impl[A : Pretty] Pretty for @deque.T[A] with pretty(deque) {
-  deque.iter().to_array().pretty()
+  deque.iter().to_array() |> pretty
 }
 
 ///|
 pub impl[A : Pretty] Pretty for @immut/array.T[A] with pretty(array) {
-  array.to_array().pretty()
+  array.to_array() |> pretty
 }
 
 ///|
 pub impl[A : Pretty] Pretty for Iter[A] with pretty(self) {
-  self.to_array().pretty()
+  self.to_array() |> pretty
 }
 
 ///|
 pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with pretty(self) {
-  self.to_array().pretty()
+  self.to_array() |> pretty
 }
 
 ///|
