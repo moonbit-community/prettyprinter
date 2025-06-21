@@ -6,7 +6,7 @@ test "pretty group" {
       @prettyprinter.hardline + @prettyprinter.text("world"),
     ),
   )
-  inspect!(
+  inspect(
     doc.to_string(),
     content=
       #|hello

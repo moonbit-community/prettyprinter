@@ -158,7 +158,10 @@ pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
 pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
   let entries = m
     .iter()
-    .map(fn { (k, v) => group(k.pretty() + char(':') + space + v.pretty()) })
+    .map(fn(pair) {
+      let (k, v) = pair
+      group(k.pretty() + char(':') + space + v.pretty())
+    })
     .to_array()
   group(
     char('{') +
@@ -346,7 +349,10 @@ pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
 pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.T[A, B] with pretty(map) {
   let entries = map
     .iter()
-    .map(fn { (k, v) => group(k.pretty() + char(':') + space + v.pretty()) })
+    .map(fn(pair) {
+      let (k, v) = pair
+      group(k.pretty() + char(':') + space + v.pretty())
+    })
     .to_array()
   group(
     braces(
@@ -385,7 +391,10 @@ pub impl[A : Pretty] Pretty for @hashset.T[A] with pretty(set) {
 pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.T[A, B] with pretty(map) {
   let entries = map
     .iter()
-    .map(fn { (k, v) => group(k.pretty() + char(':') + space + v.pretty()) })
+    .map(fn(pair) {
+      let (k, v) = pair
+      group(k.pretty() + char(':') + space + v.pretty())
+    })
     .to_array()
   group(
     braces(
@@ -452,7 +461,10 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.T[A, B] with pretty(
 ) {
   let entries = map
     .iter()
-    .map(fn { (k, v) => group(k.pretty() + char(':') + space + v.pretty()) })
+    .map(fn(pair) {
+      let (k, v) = pair
+      group(k.pretty() + char(':') + space + v.pretty())
+    })
     .to_array()
   group(
     braces(
@@ -477,7 +489,10 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.T[A, B] with prett
 ) {
   let entries = map
     .iter()
-    .map(fn { (k, v) => group(k.pretty() + char(':') + space + v.pretty()) })
+    .map(fn(pair) {
+      let (k, v) = pair
+      group(k.pretty() + char(':') + space + v.pretty())
+    })
     .to_array()
   group(
     braces(
