@@ -90,9 +90,10 @@ pub impl Show for Document with output(self, buf) {
 
 ///|
 fn render_document(width : Int, doc : Document) -> String {
-  let buf = @buffer.new()
+  let buf = StringBuilder::new()
+  let queue = [(0, false, doc)]
   let mut column = 0
-  fn aux(indent, flat_mode, doc) {
+  while queue.pop() is Some((indent, flat_mode, doc)) {
     match doc {
       Empty => ()
       Text(s) => {
@@ -100,14 +101,14 @@ fn render_document(width : Int, doc : Document) -> String {
         column += s.length()
       }
       Concat(_, l, r) => {
-        aux(indent, flat_mode, l)
-        aux(indent, flat_mode, r)
+        queue.push((indent, flat_mode, r))
+        queue.push((indent, flat_mode, l))
       }
       Switch(_, l, r) =>
         if flat_mode {
-          aux(indent, flat_mode, l)
+          queue.push((indent, flat_mode, l))
         } else {
-          aux(indent, flat_mode, r)
+          queue.push((indent, flat_mode, r))
         }
       Line => {
         buf.write_char('\n')
@@ -116,14 +117,12 @@ fn render_document(width : Int, doc : Document) -> String {
         }
         column = indent
       }
-      Nest(_, i, d) => aux(indent + i, flat_mode, d)
+      Nest(_, i, d) => queue.push((indent + i, flat_mode, d))
       Group(req, d) => {
         let flat_mode = Space(column) + req <= Space(width)
-        aux(indent, flat_mode, d)
+        queue.push((indent, flat_mode, d))
       }
     }
   }
-
-  aux(0, true, doc)
-  buf.contents().to_unchecked_string()
+  buf.to_string()
 }
