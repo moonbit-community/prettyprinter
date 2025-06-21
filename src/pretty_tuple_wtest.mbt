@@ -1,8 +1,8 @@
 ///|
 test {
   let tuple = (1, 'a')
-  inspect!(pretty(tuple), content="(1, a)")
-  inspect!(
+  inspect(pretty(tuple), content="(1, a)")
+  inspect(
     render(tuple, width=3),
     content=
       #|(
@@ -12,8 +12,8 @@ test {
     ,
   )
   let tuple = (1, 'a', false)
-  inspect!(pretty(tuple), content="(1, a, false)")
-  inspect!(
+  inspect(pretty(tuple), content="(1, a, false)")
+  inspect(
     render(tuple, width=3),
     content=
       #|(
@@ -24,8 +24,8 @@ test {
     ,
   )
   let tuple = (1, 'a', false, 1.5)
-  inspect!(pretty(tuple), content="(1, a, false, 1.5)")
-  inspect!(
+  inspect(pretty(tuple), content="(1, a, false, 1.5)")
+  inspect(
     render(tuple, width=3),
     content=
       #|(
@@ -37,8 +37,8 @@ test {
     ,
   )
   let tuple = (1, 'a', false, 1.5, Some(1))
-  inspect!(pretty(tuple), content="(1, a, false, 1.5, Some(1))")
-  inspect!(
+  inspect(pretty(tuple), content="(1, a, false, 1.5, Some(1))")
+  inspect(
     render(tuple, width=10),
     content=
       #|(
@@ -51,13 +51,13 @@ test {
     ,
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello")
-  inspect!(
+  inspect(
     pretty(tuple),
     content=
       #|(1, a, false, 1.5, Some(1), "hello")
     ,
   )
-  inspect!(
+  inspect(
     render(tuple, width=10),
     content=
       #|(
@@ -71,13 +71,13 @@ test {
     ,
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello", 5)
-  inspect!(
+  inspect(
     pretty(tuple),
     content=
       #|(1, a, false, 1.5, Some(1), "hello", 5)
     ,
   )
-  inspect!(
+  inspect(
     render(tuple, width=10),
     content=
       #|(
@@ -92,13 +92,13 @@ test {
     ,
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello", 5, 6)
-  inspect!(
+  inspect(
     pretty(tuple),
     content=
       #|(1, a, false, 1.5, Some(1), "hello", 5, 6)
     ,
   )
-  inspect!(
+  inspect(
     render(tuple, width=10),
     content=
       #|(
@@ -114,13 +114,13 @@ test {
     ,
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello", 5, 6, 7)
-  inspect!(
+  inspect(
     pretty(tuple),
     content=
       #|(1, a, false, 1.5, Some(1), "hello", 5, 6, 7)
     ,
   )
-  inspect!(
+  inspect(
     render(tuple, width=10),
     content=
       #|(

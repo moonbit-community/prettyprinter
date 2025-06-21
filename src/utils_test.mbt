@@ -4,7 +4,7 @@ test "pretty array" {
     "aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbb", "1111111111111111222222", "3333333333333333",
     "4444",
   ]
-  inspect!(
+  inspect(
     @prettyprinter.render(ls),
     content=
       #|[
@@ -28,7 +28,7 @@ test "pretty map" {
     "50": None,
   }
   let map = { "aaa": Some(map), "bbb": None, "cc": Some({ "0": None }) }
-  inspect!(
+  inspect(
     @prettyprinter.render(map),
     content=
       #|{
@@ -62,7 +62,7 @@ test "json" {
     },
     "key3": [true, false, Null],
   }
-  inspect!(
+  inspect(
     @prettyprinter.render(json),
     content=
       #|{

@@ -41,13 +41,10 @@ pub fn char(c : Char) -> Document {
 
 ///| Concatenate documents.
 pub fn list(ls : Array[Document]) -> Document {
-  fn aux {
-    ([] : ArrayView[_]) => Empty
-    [x, y] => concat(x, y)
-    [x, .. xs] => concat(x, aux(xs))
+  match ls {
+    [] => Empty
+    [x, .. xs] => xs.iter().fold(init=x, concat)
   }
-
-  aux(ls[:])
 }
 
 ///| `group(doc)` tries to render the `doc` on a single line, 

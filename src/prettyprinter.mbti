@@ -55,8 +55,6 @@ fn switch(Document, Document) -> Document
 
 fn text(String) -> Document
 
-fn to_string(Document) -> String
-
 // Types and methods
 type Document
 fn Document::to_string(Self) -> String
