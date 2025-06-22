@@ -43,7 +43,7 @@ pub fn char(c : Char) -> Document {
 pub fn list(ls : Array[Document]) -> Document {
   match ls {
     [] => Empty
-    [x, .. xs] => xs.iter().fold(init=x, concat)
+    [x, .. xs] => xs.fold(init=x, concat)
   }
 }
 
