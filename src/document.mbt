@@ -9,7 +9,7 @@ pub let empty : Document = Empty
 /// 
 /// ```
 /// render(text("hello") + nest(hardline + text("world")))
-/// |> inspect!(
+/// |> inspect(
 ///   content=
 ///     #|hello
 ///     #|  world
