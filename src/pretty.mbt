@@ -20,7 +20,7 @@ pub fn[A : Pretty] render(document : A, width~ : Int = 80) -> String {
 ///| Pretty print a string.
 /// 
 /// ```
-/// pretty("Hello, World!") |> inspect!(content="\"Hello, World!\"")
+/// pretty("Hello, World!") |> inspect(content="\"Hello, World!\"")
 /// ```
 pub impl Pretty for String with pretty(str) {
   string(str)
@@ -90,7 +90,7 @@ pub impl Pretty for Unit with pretty(_unit) {
 /// 
 /// ```
 /// let arr = [1, 2, 3, 4]
-/// inspect!(pretty(arr), content="[1, 2, 3, 4]")
+/// inspect(pretty(arr), content="[1, 2, 3, 4]")
 /// ```
 pub impl[A : Pretty] Pretty for Array[A] with pretty(xs) {
   group(
@@ -105,7 +105,7 @@ pub impl[A : Pretty] Pretty for Array[A] with pretty(xs) {
 /// 
 /// ```
 /// let opt = Some(5)
-/// inspect!(pretty(opt), content="Some(5)")
+/// inspect(pretty(opt), content="Some(5)")
 /// ``` 
 pub impl[A : Pretty] Pretty for A? with pretty(opt) {
   match opt {
@@ -119,8 +119,8 @@ pub impl[A : Pretty] Pretty for A? with pretty(opt) {
 /// ```
 /// let ok : Result[Int, String] = Ok(100)
 /// let err : Result[Int, String] = Err("error")
-/// inspect!(pretty(ok), content="Ok(100)")
-/// inspect!(pretty(err), content=
+/// inspect(pretty(ok), content="Ok(100)")
+/// inspect(pretty(err), content=
 ///   #|Err("error")
 /// )
 /// ```
@@ -141,7 +141,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
 ///   "player4": 999999999,
 ///   "player5": 999999999,
 /// }
-/// inspect!(
+/// inspect(
 ///   pretty(score),
 ///   content=
 ///     #|{
@@ -181,7 +181,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
 ///   "grades": [100, 90, 80],
 ///   "address": { "street": "123 Main St", "city": "Springfield", "state": "IL" },
 /// }
-/// inspect!(
+/// inspect(
 ///   pretty(user),
 ///   content=
 ///     #|{
@@ -229,8 +229,8 @@ pub impl Pretty for Json with pretty(json : Json) -> Document {
 /// 
 /// ```
 /// let list = @immut/list.of([(1,'a'), (2,'b'), (3,'c')])
-/// inspect!(pretty(list), content="[(1, a), (2, b), (3, c)]")
-/// inspect!(render(list,width=10), content=
+/// inspect(pretty(list), content="[(1, a), (2, b), (3, c)]")
+/// inspect(render(list,width=10), content=
 ///   #|[
 ///   #|  (1, a),
 ///   #|  (2, b),
@@ -250,8 +250,8 @@ pub impl[A : Pretty] Pretty for @immut/list.T[A] with pretty(list) {
 /// 
 /// ``` 
 /// let set = Set::of([1,2,3])
-/// inspect!(pretty(set), content="{1, 2, 3}")
-/// inspect!(
+/// inspect(pretty(set), content="{1, 2, 3}")
+/// inspect(
 ///   render(set, width=5),
 ///   content=
 ///     #|{
@@ -280,8 +280,8 @@ pub impl Pretty for Byte with pretty(byte) {
 /// 
 /// ```
 /// let x = Bytes::of([1,2,3,4,5])
-/// inspect!(pretty(x), content="[b'\\x01', b'\\x02', b'\\x03', b'\\x04', b'\\x05']")
-/// inspect!(
+/// inspect(pretty(x), content="[b'\\x01', b'\\x02', b'\\x03', b'\\x04', b'\\x05']")
+/// inspect(
 ///   render(x, width=15),
 ///   content=
 ///     #|[
@@ -305,11 +305,11 @@ pub impl Pretty for Bytes with pretty(bytes) {
 /// 
 /// ```
 /// let x  : FixedArray[_] = [1, 2, 3]
-/// inspect!(
+/// inspect(
 ///   pretty(x),
 ///   content="[1, 2, 3]",
 /// )
-/// inspect!(
+/// inspect(
 ///   render(x, width=5),
 ///   content=
 ///     #|[
@@ -333,10 +333,10 @@ pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
 /// 
 /// ```
 /// let x = @hashmap.of([("key1",1),("key2",2000)])
-/// inspect!(pretty(x), content=
+/// inspect(pretty(x), content=
 ///   #|{"key2": 2000, "key1": 1}
 /// )
-/// inspect!(
+/// inspect(
 ///   render(x, width=5),
 ///   content=
 ///     #|{
@@ -364,10 +364,10 @@ pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.T[A, B] with pretty(map) {
 ///|
 /// ```
 /// let x = @hashset.of(["key1","key2"])
-/// inspect!(pretty(x), content=
+/// inspect(pretty(x), content=
 ///   #|{"key1", "key2"}
 /// )
-/// inspect!(
+/// inspect(
 ///   render(x, width=5),
 ///   content=
 ///     #|{

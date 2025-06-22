@@ -15,7 +15,7 @@
 ///
 /// ```
 /// let doc = separate_map(text(","), [1,2,3], pretty)
-/// inspect!(doc, content="1,2,3") 
+/// inspect(doc, content="1,2,3") 
 /// ```
 pub fn[A] separate_map(
   sep : Document,
@@ -33,7 +33,7 @@ pub fn[A] separate_map(
 /// ```
 /// let sep = text("-")
 /// let docs = [text("Hello"), text("World"), text("!")]
-/// separate(sep, docs).pretty() |> inspect!(content="Hello-World-!")
+/// separate(sep, docs).pretty() |> inspect(content="Hello-World-!")
 /// ```
 pub fn separate(sep : Document, docs : Array[Document]) -> Document {
   let cat_by_sep = fn(l, r) { concat(l, concat(sep, r)) }
@@ -50,7 +50,7 @@ pub fn separate(sep : Document, docs : Array[Document]) -> Document {
 /// # Example
 /// 
 /// ```
-/// inspect!(surround(char('['), char(']'), text("doc")), content="[doc]")
+/// inspect(surround(char('['), char(']'), text("doc")), content="[doc]")
 /// ``` 
 pub fn surround(left : Document, right : Document, doc : Document) -> Document {
   left + doc + right
@@ -59,7 +59,7 @@ pub fn surround(left : Document, right : Document, doc : Document) -> Document {
 ///| wraps the given document in parentheses.  
 /// 
 /// ```
-/// inspect!(parens(text("doc")), content="(doc)")
+/// inspect(parens(text("doc")), content="(doc)")
 /// ```
 pub fn parens(doc : Document) -> Document {
   surround(char('('), char(')'), doc)
@@ -68,7 +68,7 @@ pub fn parens(doc : Document) -> Document {
 ///| wraps the given document in brackets.  
 /// 
 /// ```
-/// inspect!(brackets(text("doc")), content="[doc]")
+/// inspect(brackets(text("doc")), content="[doc]")
 /// ```
 pub fn brackets(doc : Document) -> Document {
   surround(char('['), char(']'), doc)
@@ -77,7 +77,7 @@ pub fn brackets(doc : Document) -> Document {
 ///| wraps the given document in braces.
 /// 
 /// ```
-/// inspect!(braces(text("doc")), content="{doc}")
+/// inspect(braces(text("doc")), content="{doc}")
 /// ```
 pub fn braces(doc : Document) -> Document {
   surround(char('{'), char('}'), doc)
@@ -86,7 +86,7 @@ pub fn braces(doc : Document) -> Document {
 ///| print the string with double quotes.
 /// 
 /// ```
-/// inspect!(string("Hello, World!"), content="\"Hello, World!\"")
+/// inspect(string("Hello, World!"), content="\"Hello, World!\"")
 /// ```
 pub fn string(str : String) -> Document {
   surround(char('"'), char('"'), text(str))
@@ -99,8 +99,8 @@ pub fn string(str : String) -> Document {
 ///   "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog",
 /// ]
 /// let doc = words.map(fn(x){text(x) + space}) |> flow()
-/// inspect!(doc, content="The quick brown fox jumps over the lazy dog ")
-/// inspect!(
+/// inspect(doc, content="The quick brown fox jumps over the lazy dog ")
+/// inspect(
 ///   render(doc, width=10),
 ///   content=
 ///     #|The quick brown 
