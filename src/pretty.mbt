@@ -510,3 +510,20 @@ pub impl[A : Pretty] Pretty for @immut/sorted_set.T[A] with pretty(set) {
     .fold(init=empty, concat)
   group(braces(nest(softline + elems) + softline))
 }
+
+///| Pretty print a bigint value.
+/// ```
+/// let i = @moonbitlang/core/bigint.BigInt::from_string("123456789012345678901234567890")
+/// pretty(i) |> inspect(content="123456789012345678901234567890")
+/// ```
+pub impl Pretty for @moonbitlang/core/bigint.BigInt with pretty(i) {
+  text(i.to_string())
+}
+
+///| Pretty print a rational type.
+/// ```
+/// pretty(@rational.new(1L, 2L).unwrap()) |> inspect(content="1/2")
+/// ```
+pub impl Pretty for @moonbitlang/core/rational.T with pretty(rational) {
+  text(rational.to_string())
+}
