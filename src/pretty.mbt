@@ -120,9 +120,9 @@ pub impl[A : Pretty] Pretty for A? with pretty(opt) {
 /// let ok : Result[Int, String] = Ok(100)
 /// let err : Result[Int, String] = Err("error")
 /// inspect(pretty(ok), content="Ok(100)")
-/// inspect(pretty(err), content=
+/// inspect(pretty(err), content=(
 ///   #|Err("error")
-/// )
+/// ))
 /// ```
 pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
   match res {
@@ -143,7 +143,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
 /// }
 /// inspect(
 ///   pretty(score),
-///   content=
+///   content=(
 ///     #|{
 ///     #|  "player1": 1009,
 ///     #|  "player2": 200,
@@ -151,17 +151,14 @@ pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
 ///     #|  "player4": 999999999,
 ///     #|  "player5": 999999999
 ///     #|}
-///   ,
+///   ),
 /// )
 /// ```
 /// 
 pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
   let entries = m
     .iter()
-    .map(fn(pair) {
-      let (k, v) = pair
-      group(k.pretty() + char(':') + space + v.pretty())
-    })
+    .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
     .to_array()
   group(
     char('{') +
@@ -183,7 +180,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
 /// }
 /// inspect(
 ///   pretty(user),
-///   content=
+///   content=(
 ///     #|{
 ///     #|  "name": John Doe,
 ///     #|  "age": 30,
@@ -191,19 +188,19 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
 ///     #|  "grades": [100, 90, 80],
 ///     #|  "address": {"street": 123 Main St, "city": Springfield, "state": IL}
 ///     #|}
-///   ,
+///   ),
 /// )
 /// ``` 
 pub impl Pretty for Json with pretty(json : Json) -> Document {
   fn pair(pair : (String, Json)) -> Document {
-    string(pair.0) + text(":") + space + Pretty::pretty(pair.1)
+    string(pair.0) + text(":") + space + pretty(pair.1)
   }
 
   match json {
     True => text("true")
     False => text("false")
     Null => text("null")
-    Number(n) => Pretty::pretty(n)
+    Number(n, ..) => Pretty::pretty(n)
     String(s) => text(s)
     Array(xs) =>
       group(
@@ -227,15 +224,18 @@ pub impl Pretty for Json with pretty(json : Json) -> Document {
 
 ///| Pretty print a `@immut/list.T`
 /// 
-/// ```
+/// ```skip
 /// let list = @immut/list.of([(1,'a'), (2,'b'), (3,'c')])
 /// inspect(pretty(list), content="[(1, a), (2, b), (3, c)]")
-/// inspect(render(list,width=10), content=
-///   #|[
-///   #|  (1, a),
-///   #|  (2, b),
-///   #|  (3, c)
-///   #|]
+/// inspect(
+///   render(list,width=10), 
+///   content=(
+///     #|[
+///     #|  (1, a),
+///     #|  (2, b),
+///     #|  (3, c)
+///     #|]
+///   ),
 /// )
 /// ```
 pub impl[A : Pretty] Pretty for @immut/list.T[A] with pretty(list) {
@@ -253,13 +253,13 @@ pub impl[A : Pretty] Pretty for @immut/list.T[A] with pretty(list) {
 /// inspect(pretty(set), content="{1, 2, 3}")
 /// inspect(
 ///   render(set, width=5),
-///   content=
+///   content=(
 ///     #|{
 ///     #|  1,
 ///     #|  2,
 ///     #|  3
 ///     #|}
-///   ,
+///   ),
 /// )
 /// ```
 pub impl[A : Pretty] Pretty for Set[A] with pretty(set) {
@@ -283,13 +283,13 @@ pub impl Pretty for Byte with pretty(byte) {
 /// inspect(pretty(x), content="[b'\\x01', b'\\x02', b'\\x03', b'\\x04', b'\\x05']")
 /// inspect(
 ///   render(x, width=15),
-///   content=
+///   content=(
 ///     #|[
 ///     #|  b'\x01', b'\x02',
 ///     #|  b'\x03', b'\x04',
 ///     #|  b'\x05'
 ///     #|]
-///   ,
+///   ),
 /// )
 /// ```
 pub impl Pretty for Bytes with pretty(bytes) {
@@ -311,13 +311,13 @@ pub impl Pretty for Bytes with pretty(bytes) {
 /// )
 /// inspect(
 ///   render(x, width=5),
-///   content=
+///   content=(
 ///     #|[
 ///     #|  1,
 ///     #|  2,
 ///     #|  3
 ///     #|]
-///   ,
+///   ),
 /// )
 /// ```
 pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
@@ -333,48 +333,41 @@ pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
 /// 
 /// ```
 /// let x = @hashmap.of([("key1",1),("key2",2000)])
-/// inspect(pretty(x), content=
+/// inspect(pretty(x), content=(
 ///   #|{"key2": 2000, "key1": 1}
-/// )
+/// ))
 /// inspect(
 ///   render(x, width=5),
-///   content=
+///   content=(
 ///     #|{
 ///     #|  "key2": 2000,
 ///     #|  "key1": 1
 ///     #|}
-///   ,
+///   ),
 /// )
 /// ```
 pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.T[A, B] with pretty(map) {
   let entries = map
     .iter()
-    .map(fn(pair) {
-      let (k, v) = pair
-      group(k.pretty() + char(':') + space + v.pretty())
-    })
+    .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
     .to_array()
-  group(
-    braces(
-      nest(softline + separate(concat(char(','), line), entries)) + softline,
-    ),
-  )
+  group(braces(nest(softline + separate(char(',') + line, entries)) + softline))
 }
 
 ///|
 /// ```
 /// let x = @hashset.of(["key1","key2"])
-/// inspect(pretty(x), content=
+/// inspect(pretty(x), content=(
 ///   #|{"key1", "key2"}
-/// )
+/// ))
 /// inspect(
 ///   render(x, width=5),
-///   content=
+///   content=(
 ///     #|{
 ///     #|  "key1",
 ///     #|  "key2"
 ///     #|}
-///   ,
+///   ),
 /// )
 /// ```
 /// 
@@ -391,16 +384,9 @@ pub impl[A : Pretty] Pretty for @hashset.T[A] with pretty(set) {
 pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.T[A, B] with pretty(map) {
   let entries = map
     .iter()
-    .map(fn(pair) {
-      let (k, v) = pair
-      group(k.pretty() + char(':') + space + v.pretty())
-    })
+    .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
     .to_array()
-  group(
-    braces(
-      nest(softline + separate(concat(char(','), line), entries)) + softline,
-    ),
-  )
+  group(braces(nest(softline + separate(char(',') + line, entries)) + softline))
 }
 
 ///|
@@ -432,27 +418,27 @@ pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A] with pretty(
 
 ///|
 pub impl Pretty for @buffer.T with pretty(buffer) {
-  buffer.to_bytes() |> pretty
+  buffer.to_bytes() |> pretty()
 }
 
 ///|
 pub impl[A : Pretty] Pretty for @deque.T[A] with pretty(deque) {
-  deque.iter().to_array() |> pretty
+  deque.iter().to_array() |> pretty()
 }
 
 ///|
 pub impl[A : Pretty] Pretty for @immut/array.T[A] with pretty(array) {
-  array.to_array() |> pretty
+  array.to_array() |> pretty()
 }
 
 ///|
 pub impl[A : Pretty] Pretty for Iter[A] with pretty(self) {
-  self.to_array() |> pretty
+  self.to_array() |> pretty()
 }
 
 ///|
 pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with pretty(self) {
-  self.to_array() |> pretty
+  self.to_array() |> pretty()
 }
 
 ///|
@@ -461,16 +447,9 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.T[A, B] with pretty(
 ) {
   let entries = map
     .iter()
-    .map(fn(pair) {
-      let (k, v) = pair
-      group(k.pretty() + char(':') + space + v.pretty())
-    })
+    .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
     .to_array()
-  group(
-    braces(
-      nest(softline + separate(concat(char(','), line), entries)) + softline,
-    ),
-  )
+  group(braces(nest(softline + separate(char(',') + line, entries)) + softline))
 }
 
 ///|
@@ -489,16 +468,9 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.T[A, B] with prett
 ) {
   let entries = map
     .iter()
-    .map(fn(pair) {
-      let (k, v) = pair
-      group(k.pretty() + char(':') + space + v.pretty())
-    })
+    .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
     .to_array()
-  group(
-    braces(
-      nest(softline + separate(concat(char(','), line), entries)) + softline,
-    ),
-  )
+  group(braces(nest(softline + separate(char(',') + line, entries)) + softline))
 }
 
 ///|
