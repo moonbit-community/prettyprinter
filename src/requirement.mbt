@@ -1,4 +1,10 @@
 ///|
+priv enum Requirement {
+  Space(Int)
+  Infinite
+}
+
+///|
 impl Add for Requirement with op_add(self, other) {
   match (self, other) {
     (Space(a), Space(b)) => Space(a + b)
