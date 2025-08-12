@@ -62,7 +62,6 @@ fn text(String) -> Document
 
 // Types and methods
 type Document
-fn Document::to_string(Self) -> String
 impl Pretty for Document
 impl Add for Document
 impl Show for Document
