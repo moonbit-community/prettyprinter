@@ -1,21 +1,7 @@
 # pretty printer
 
 A declarative-style pretty printer engine, which includes printers for built-in 
-types such as `Array`, `Map`, and `JsonValue`.
-
-# Install
-
-Add `Yoorkin/prettyprinter` as dependency by `moon add`.
-
-Import package `prettyprinter` in `moon.pkg.json`, like this:
-
-```
-{
-  "import": [
-    "Yoorkin/prettyprinter"
-  ]
-}
-```
+types such as `Array`, `Map`, and `Json`.
 
 # Usage
 
