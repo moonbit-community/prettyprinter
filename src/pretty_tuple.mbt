@@ -12,7 +12,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for (A, B) with pretty(pair) {
 
 ///|
 pub impl[A : Pretty, B : Pretty, C : Pretty] Pretty for (A, B, C) with pretty(
-  tuple
+  tuple,
 ) {
   parens(
     group(
@@ -31,7 +31,7 @@ pub impl[A : Pretty, B : Pretty, C : Pretty] Pretty for (A, B, C) with pretty(
 
 ///|
 pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty] Pretty for (A, B, C, D) with pretty(
-  tuple
+  tuple,
 ) {
   parens(
     group(
@@ -108,15 +108,15 @@ pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty]
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty] Pretty for (
-  A,
-  B,
-  C,
-  D,
-  E,
-  F,
-  G,
-) with pretty(tuple) {
+pub impl[
+  A : Pretty,
+  B : Pretty,
+  C : Pretty,
+  D : Pretty,
+  E : Pretty,
+  F : Pretty,
+  G : Pretty,
+] Pretty for (A, B, C, D, E, F, G) with pretty(tuple) {
   parens(
     group(
       nest(
@@ -141,16 +141,16 @@ pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty,
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty, H : Pretty] Pretty for (
-  A,
-  B,
-  C,
-  D,
-  E,
-  F,
-  G,
-  H,
-) with pretty(tuple) {
+pub impl[
+  A : Pretty,
+  B : Pretty,
+  C : Pretty,
+  D : Pretty,
+  E : Pretty,
+  F : Pretty,
+  G : Pretty,
+  H : Pretty,
+] Pretty for (A, B, C, D, E, F, G, H) with pretty(tuple) {
   parens(
     group(
       nest(
@@ -177,17 +177,17 @@ pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty,
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty, H : Pretty, I : Pretty] Pretty for (
-  A,
-  B,
-  C,
-  D,
-  E,
-  F,
-  G,
-  H,
-  I,
-) with pretty(tuple) {
+pub impl[
+  A : Pretty,
+  B : Pretty,
+  C : Pretty,
+  D : Pretty,
+  E : Pretty,
+  F : Pretty,
+  G : Pretty,
+  H : Pretty,
+  I : Pretty,
+] Pretty for (A, B, C, D, E, F, G, H, I) with pretty(tuple) {
   parens(
     group(
       nest(

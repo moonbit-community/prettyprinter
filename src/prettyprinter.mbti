@@ -1,12 +1,15 @@
+// Generated using `moon info`, DON'T EDIT IT
 package "Yoorkin/prettyprinter"
 
 import(
+  "moonbitlang/core/bigint"
   "moonbitlang/core/buffer"
   "moonbitlang/core/deque"
   "moonbitlang/core/immut/array"
   "moonbitlang/core/immut/list"
   "moonbitlang/core/priority_queue"
   "moonbitlang/core/queue"
+  "moonbitlang/core/rational"
   "moonbitlang/core/set"
 )
 
@@ -31,13 +34,13 @@ let line : Document
 
 fn list(Array[Document]) -> Document
 
-fn nest(indent~ : Int = .., Document) -> Document
+fn nest(indent? : Int, Document) -> Document
 
 fn parens(Document) -> Document
 
 fn[A : Pretty] pretty(A) -> Document
 
-fn[A : Pretty] render(A, width~ : Int = ..) -> String
+fn[A : Pretty] render(A, width? : Int) -> String
 
 fn separate(Document, Array[Document]) -> Document
 
@@ -54,6 +57,8 @@ fn surround(Document, Document, Document) -> Document
 fn switch(Document, Document) -> Document
 
 fn text(String) -> Document
+
+// Errors
 
 // Types and methods
 type Document
@@ -85,6 +90,7 @@ impl[A : Pretty] Pretty for A?
 impl[A : Pretty, B : Pretty] Pretty for Result[A, B]
 impl[A : Pretty] Pretty for FixedArray[A]
 impl Pretty for Bytes
+impl Pretty for @bigint.BigInt
 impl Pretty for @buffer.T
 impl[A : Pretty] Pretty for Array[A]
 impl[A : Pretty] Pretty for Iter[A]
@@ -102,6 +108,7 @@ impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.T[A, 
 impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.T[A]
 impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A]
 impl[A : Pretty] Pretty for @queue.T[A]
+impl Pretty for @rational.T
 impl[A : Pretty] Pretty for @set.Set[A]
 impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/sorted_map.T[A, B]
 impl[A : Pretty] Pretty for @moonbitlang/core/sorted_set.T[A]

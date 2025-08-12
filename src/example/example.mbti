@@ -1,3 +1,4 @@
+// Generated using `moon info`, DON'T EDIT IT
 package "Yoorkin/prettyprinter/example"
 
 import(
@@ -5,6 +6,8 @@ import(
 )
 
 // Values
+
+// Errors
 
 // Types and methods
 type Tree[A]

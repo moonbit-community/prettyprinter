@@ -6,7 +6,7 @@ test "pretty array" {
   ]
   inspect(
     @prettyprinter.render(ls),
-    content=
+    content=(
       #|[
       #|  "aaaaaaaaaaaaaaaa",
       #|  "bbbbbbbbbbbbbbbbbbbbbb",
@@ -14,7 +14,7 @@ test "pretty array" {
       #|  "3333333333333333",
       #|  "4444"
       #|]
-    ,
+    ),
   )
 }
 
@@ -30,7 +30,7 @@ test "pretty map" {
   let map = { "aaa": Some(map), "bbb": None, "cc": Some({ "0": None }) }
   inspect(
     @prettyprinter.render(map),
-    content=
+    content=(
       #|{
       #|  "aaa": Some({
       #|    "1000": Some([1, 2, 3, 4, 5]),
@@ -42,7 +42,7 @@ test "pretty map" {
       #|  "bbb": None,
       #|  "cc": Some({"0": None})
       #|}
-    ,
+    ),
   )
 }
 
@@ -64,7 +64,7 @@ test "json" {
   }
   inspect(
     @prettyprinter.render(json),
-    content=
+    content=(
       #|{
       #|  "key1": 1,
       #|  "key2": 2099889,
@@ -78,6 +78,6 @@ test "json" {
       #|    "obj4": {"a": true, "b": true}
       #|  }
       #|}
-    ,
+    ),
   )
 }

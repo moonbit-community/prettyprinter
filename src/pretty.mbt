@@ -425,7 +425,7 @@ pub impl[A : Pretty] Pretty for @queue.T[A] with pretty(queue) {
 
 ///|
 pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A] with pretty(
-  queue
+  queue,
 ) {
   pretty(queue.to_array())
 }
@@ -457,7 +457,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with pretty(self) {
 
 ///|
 pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.T[A, B] with pretty(
-  map
+  map,
 ) {
   let entries = map
     .iter()
@@ -485,7 +485,7 @@ pub impl[A : Pretty] Pretty for @immut/hashset.T[A] with pretty(set) {
 
 ///|
 pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.T[A, B] with pretty(
-  map
+  map,
 ) {
   let entries = map
     .iter()

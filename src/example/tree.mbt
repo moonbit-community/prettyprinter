@@ -37,7 +37,7 @@ test {
   ])
   inspect(
     @pp.render(tree, width=50),
-    content=
+    content=(
       #|Node(
       #|  100,
       #|  200,
@@ -50,6 +50,6 @@ test {
       #|  ),
       #|  1000
       #|)
-    ,
+    ),
   )
 }
