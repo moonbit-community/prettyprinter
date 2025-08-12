@@ -102,11 +102,11 @@ pub fn string(str : String) -> Document {
 /// inspect(doc, content="The quick brown fox jumps over the lazy dog ")
 /// inspect(
 ///   render(doc, width=10),
-///   content=
+///   content=(
 ///     #|The quick brown 
 ///     #|fox jumps over 
 ///     #|the lazy dog 
-///   ,
+///   ),
 /// )
 /// ```
 pub fn flow(doc : Array[Document]) -> Document {

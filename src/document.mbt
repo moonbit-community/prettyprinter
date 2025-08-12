@@ -10,10 +10,10 @@ pub let empty : Document = Empty
 /// ```
 /// render(text("hello") + nest(hardline + text("world")))
 /// |> inspect(
-///   content=
+///   content=(
 ///     #|hello
 ///     #|  world
-///   ,
+///   ),
 /// )
 /// ```
 /// 
@@ -41,10 +41,7 @@ pub fn char(c : Char) -> Document {
 
 ///| Concatenate documents.
 pub fn list(ls : Array[Document]) -> Document {
-  match ls {
-    [] => Empty
-    [x, .. xs] => xs.fold(init=x, concat)
-  }
+  ls.fold(init=Empty, concat)
 }
 
 ///| `group(doc)` tries to render the `doc` on a single line, 
