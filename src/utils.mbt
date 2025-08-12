@@ -20,7 +20,7 @@
 pub fn[A] separate_map(
   sep : Document,
   elems : Array[A],
-  f : (A) -> Document
+  f : (A) -> Document,
 ) -> Document {
   separate(sep, elems.map(f))
 }

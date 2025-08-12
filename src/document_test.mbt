@@ -8,9 +8,9 @@ test "pretty group" {
   )
   inspect(
     doc.to_string(),
-    content=
+    content=(
       #|hello
       #|  world
-    ,
+    ),
   )
 }
