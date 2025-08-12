@@ -90,40 +90,32 @@ pub impl Show for Document with output(self, buf) {
 
 ///|
 fn render_document(width : Int, doc : Document) -> String {
-  let buf = @buffer.new()
+  let buf = StringBuilder::new()
+  let stack = [(0, false, doc)]
   let mut column = 0
-  fn aux(indent, flat_mode, doc) {
+  while stack.pop() is Some((indent, fit, doc)) {
     match doc {
       Empty => ()
-      Text(s) => {
-        buf.write_string(s)
-        column += s.length()
-      }
-      Concat(_, l, r) => {
-        aux(indent, flat_mode, l)
-        aux(indent, flat_mode, r)
-      }
-      Switch(_, l, r) =>
-        if flat_mode {
-          aux(indent, flat_mode, l)
-        } else {
-          aux(indent, flat_mode, r)
-        }
       Line => {
         buf.write_char('\n')
-        for i = 0; i < indent; i = i + 1 {
+        for _ in 0..<indent {
           buf.write_char(' ')
         }
         column = indent
       }
-      Nest(_, i, d) => aux(indent + i, flat_mode, d)
+      Text(s) => {
+        buf.write_string(s)
+        column += s.length()
+      }
+      Concat(_, l, r) => stack..push((indent, fit, r))..push((indent, fit, l))
+      Nest(_, i, d) => stack..push((indent + i, fit, d))
+      Switch(_, a, b) =>
+        stack.push(if fit { (indent, fit, a) } else { (indent, fit, b) })
       Group(req, d) => {
-        let flat_mode = Space(column) + req <= Space(width)
-        aux(indent, flat_mode, d)
+        let fit = fit || Space(column) + req <= Space(width)
+        stack.push((indent, fit, d))
       }
     }
   }
-
-  aux(0, true, doc)
-  buf.contents().to_unchecked_string()
+  buf.to_string()
 }
