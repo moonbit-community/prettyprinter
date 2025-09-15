@@ -22,6 +22,8 @@ fn char(Char) -> Document
 
 fn concat(Document, Document) -> Document
 
+fn ctor(pkg? : String, ty? : String, String, Array[Document], labeled? : Map[String, Document]) -> Document
+
 let empty : Document
 
 fn flow(Array[Document]) -> Document
@@ -40,6 +42,8 @@ fn parens(Document) -> Document
 
 fn[A : Pretty] pretty(A) -> Document
 
+fn record(pkg? : String, ty? : String, Map[String, Document]) -> Document
+
 fn[A : Pretty] render(A, width? : Int) -> String
 
 fn separate(Document, Array[Document]) -> Document
@@ -57,6 +61,8 @@ fn surround(Document, Document, Document) -> Document
 fn switch(Document, Document) -> Document
 
 fn text(String) -> Document
+
+fn tuple(Array[Document]) -> Document
 
 // Errors
 
@@ -90,27 +96,27 @@ impl[A : Pretty, B : Pretty] Pretty for Result[A, B]
 impl[A : Pretty] Pretty for FixedArray[A]
 impl Pretty for Bytes
 impl Pretty for @bigint.BigInt
-impl Pretty for @buffer.T
+impl Pretty for @buffer.Buffer
 impl[A : Pretty] Pretty for Array[A]
 impl[A : Pretty] Pretty for Iter[A]
 impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B]
 impl Pretty for Json
 impl[A : Pretty, B : Pretty] Pretty for Map[A, B]
-impl[A : Pretty] Pretty for @deque.T[A]
-impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/hashmap.T[A, B]
-impl[A : Pretty] Pretty for @moonbitlang/core/hashset.T[A]
+impl[A : Pretty] Pretty for @deque.Deque[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/hashmap.HashMap[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/hashset.HashSet[A]
 impl[A : Pretty] Pretty for @array.T[A]
-impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/hashmap.T[A, B]
-impl[A : Pretty] Pretty for @moonbitlang/core/immut/hashset.T[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/hashmap.HashMap[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/immut/hashset.HashSet[A]
 impl[A : Pretty] Pretty for @list.T[A]
-impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.T[A, B]
-impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.T[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.SortedMap[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.SortedSet[A]
 impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A]
-impl[A : Pretty] Pretty for @queue.T[A]
+impl[A : Pretty] Pretty for @queue.Queue[A]
 impl Pretty for @rational.T
 impl[A : Pretty] Pretty for @set.Set[A]
-impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/sorted_map.T[A, B]
-impl[A : Pretty] Pretty for @moonbitlang/core/sorted_set.T[A]
+impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/sorted_map.SortedMap[A, B]
+impl[A : Pretty] Pretty for @moonbitlang/core/sorted_set.SortedSet[A]
 impl[A : Pretty, B : Pretty] Pretty for (A, B)
 impl[A : Pretty, B : Pretty, C : Pretty] Pretty for (A, B, C)
 impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty] Pretty for (A, B, C, D)
