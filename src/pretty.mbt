@@ -8,7 +8,8 @@ pub fn[A : Pretty] pretty(x : A) -> Document {
   x.pretty()
 }
 
-///| Renders a document as a pretty string with a specified width.
+///|
+/// Renders a document as a pretty string with a specified width.
 ///
 /// # Arguments
 ///
@@ -18,11 +19,12 @@ pub fn[A : Pretty] pretty(x : A) -> Document {
 /// # Returns
 ///
 /// The rendered string.
-pub fn[A : Pretty] render(document : A, width~ : Int = 80) -> String {
+pub fn[A : Pretty] render(document : A, width? : Int = 80) -> String {
   render_document(width, document.pretty())
 }
 
-///| Pretty print a string.
+///|
+/// Pretty print a string.
 /// 
 /// ```
 /// pretty("Hello, World!") |> inspect(content="\"Hello, World!\"")
@@ -31,67 +33,80 @@ pub impl Pretty for String with pretty(str) {
   string(str)
 }
 
-///| Pretty print a Bool.
+///|
+/// Pretty print a Bool.
 pub impl Pretty for Bool with pretty(b) {
   text(b.to_string())
 }
 
-///| Pretty print an Int16.
+///|
+/// Pretty print an Int16.
 pub impl Pretty for Int16 with pretty(i) {
   text(i.to_string())
 }
 
-///| Pretty print an Int.
+///|
+/// Pretty print an Int.
 pub impl Pretty for Int with pretty(i) {
   text(i.to_string())
 }
 
-///| Pretty print an Int64.
+///|
+/// Pretty print an Int64.
 pub impl Pretty for Int64 with pretty(i) {
   text(i.to_string())
 }
 
-///| Pretty print an UInt16.
+///|
+/// Pretty print an UInt16.
 pub impl Pretty for UInt16 with pretty(i) {
   text(i.to_string())
 }
 
-///| Pretty print a UInt.
+///|
+/// Pretty print a UInt.
 pub impl Pretty for UInt with pretty(i) {
   text(i.to_string())
 }
 
-///| Pretty print a UInt64.
+///|
+/// Pretty print a UInt64.
 pub impl Pretty for UInt64 with pretty(i) {
   text(i.to_string())
 }
 
-///| Pretty print a character.
+///|
+/// Pretty print a character.
 pub impl Pretty for Char with pretty(c) {
   char(c)
 }
 
-///| Pretty print a double.
+///|
+/// Pretty print a double.
 pub impl Pretty for Double with pretty(d) {
   text(d.to_string())
 }
 
-///| Pretty print a float.
+///|
+/// Pretty print a float.
 pub impl Pretty for Float with pretty(f) {
   text(f.to_string())
 }
 
-///| Pretty print a document.
+///|
+/// Pretty print a document.
 pub impl Pretty for Document with pretty(doc) {
   doc
 }
 
-///| Pretty print a unit value.
+///|
+/// Pretty print a unit value.
 pub impl Pretty for Unit with pretty(_unit) {
   text("()")
 }
 
-///| Pretty print an array.
+///|
+/// Pretty print an array.
 /// 
 /// ```
 /// let arr = [1, 2, 3, 4]
@@ -106,7 +121,8 @@ pub impl[A : Pretty] Pretty for Array[A] with pretty(xs) {
   )
 }
 
-///| Pretty print an option value.
+///|
+/// Pretty print an option value.
 /// 
 /// ```
 /// let opt = Some(5)
@@ -119,7 +135,8 @@ pub impl[A : Pretty] Pretty for A? with pretty(opt) {
   }
 }
 
-///| Pretty print a result value.
+///|
+/// Pretty print a result value.
 /// 
 /// ```
 /// let ok : Result[Int, String] = Ok(100)
@@ -136,7 +153,8 @@ pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
   }
 }
 
-///| Pretty print a map.
+///|
+/// Pretty print a map.
 /// 
 /// ```
 /// let score : Map[String, Int] = {
@@ -173,7 +191,8 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
   )
 }
 
-///| Pretty print a JSON value.
+///|
+/// Pretty print a JSON value.
 /// 
 /// ```
 /// let user : Json = {
@@ -227,7 +246,8 @@ pub impl Pretty for Json with pretty(json : Json) -> Document {
   }
 }
 
-///| Pretty print a `@immut/list.T`
+///|
+/// Pretty print a `@immut/list.T`
 /// 
 /// ```skip
 /// let list = @immut/list.of([(1,'a'), (2,'b'), (3,'c')])
@@ -251,7 +271,8 @@ pub impl[A : Pretty] Pretty for @immut/list.T[A] with pretty(list) {
   group(brackets(nest(softline + elems) + softline))
 }
 
-///| Pretty print a Set
+///|
+/// Pretty print a Set
 /// 
 /// ``` 
 /// let set = Set::of([1,2,3])
@@ -281,7 +302,8 @@ pub impl Pretty for Byte with pretty(byte) {
   text(byte.to_string())
 }
 
-///| Pretty print a Bytes
+///|
+/// Pretty print a Bytes
 /// 
 /// ```
 /// let x = Bytes::of([1,2,3,4,5])
@@ -306,7 +328,8 @@ pub impl Pretty for Bytes with pretty(bytes) {
   group(brackets(nest(softline + elems) + softline))
 }
 
-///| Pretty print a FixedArray
+///|
+/// Pretty print a FixedArray
 /// 
 /// ```
 /// let x  : FixedArray[_] = [1, 2, 3]
@@ -334,7 +357,8 @@ pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
   group(brackets(nest(softline + elems) + softline))
 }
 
-///| Pretty print a `@hashmap.T`
+///|
+/// Pretty print a `@hashmap.T`
 /// 
 /// ```
 /// let x = @hashmap.of([("key1",1),("key2",2000)])
@@ -488,7 +512,8 @@ pub impl[A : Pretty] Pretty for @immut/sorted_set.T[A] with pretty(set) {
   group(braces(nest(softline + elems) + softline))
 }
 
-///| Pretty print a bigint value.
+///|
+/// Pretty print a bigint value.
 /// ```
 /// let i = @moonbitlang/core/bigint.BigInt::from_string("123456789012345678901234567890")
 /// pretty(i) |> inspect(content="123456789012345678901234567890")
@@ -497,7 +522,8 @@ pub impl Pretty for @moonbitlang/core/bigint.BigInt with pretty(i) {
   text(i.to_string())
 }
 
-///| Pretty print a rational type.
+///|
+/// Pretty print a rational type.
 /// ```
 /// pretty(@rational.new(1L, 2L).unwrap()) |> inspect(content="1/2")
 /// ```
