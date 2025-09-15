@@ -6,7 +6,6 @@ import(
   "moonbitlang/core/buffer"
   "moonbitlang/core/deque"
   "moonbitlang/core/immut/array"
-  "moonbitlang/core/immut/list"
   "moonbitlang/core/priority_queue"
   "moonbitlang/core/queue"
   "moonbitlang/core/rational"
@@ -108,9 +107,10 @@ impl[A : Pretty] Pretty for @moonbitlang/core/hashset.HashSet[A]
 impl[A : Pretty] Pretty for @array.T[A]
 impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/hashmap.HashMap[A, B]
 impl[A : Pretty] Pretty for @moonbitlang/core/immut/hashset.HashSet[A]
-impl[A : Pretty] Pretty for @list.T[A]
+impl[A : Pretty] Pretty for @moonbitlang/core/immut/list.T[A]
 impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.SortedMap[A, B]
 impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.SortedSet[A]
+impl[A : Pretty] Pretty for @moonbitlang/core/list.List[A]
 impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A]
 impl[A : Pretty] Pretty for @queue.Queue[A]
 impl Pretty for @rational.T

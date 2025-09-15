@@ -272,6 +272,31 @@ pub impl[A : Pretty] Pretty for @immut/list.T[A] with pretty(list) {
 }
 
 ///|
+/// Pretty print a `@list.List`
+/// 
+/// ```
+/// let list = @list.of([(1,'a'), (2,'b'), (3,'c')])
+/// inspect(pretty(list), content="[(1, a), (2, b), (3, c)]")
+/// inspect(
+///   render(list,width=10), 
+///   content=(
+///     #|[
+///     #|  (1, a),
+///     #|  (2, b),
+///     #|  (3, c)
+///     #|]
+///   ),
+/// )
+/// ```
+pub impl[A : Pretty] Pretty for @list.List[A] with pretty(list) {
+  let elems = list
+    .map(pretty)
+    .intersperse(text(",") + line)
+    .fold(init=empty, concat)
+  group(brackets(nest(softline + elems) + softline))
+}
+
+///|
 /// Pretty print a Set
 /// 
 /// ``` 
