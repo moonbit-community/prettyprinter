@@ -24,7 +24,7 @@ pub let hardline : Document = Line
 ///|
 /// Space character.
 /// `render(space) == " "`
-pub let space : Document = char(' ')
+pub let space : Document = Space
 
 ///|
 /// Represents a line break if the line is too long, or nothing if it fits.
@@ -33,6 +33,47 @@ pub let softline : Document = switch(empty, line)
 ///|
 /// Represents a line break if the line is too long, or a space if it fits.
 pub let line : Document = switch(space, hardline)
+
+///|
+/// Ensures at least one line at this position.
+/// ```
+/// inspect(
+///   mandatory_line + nest(line + text("abc")),
+///   content=(
+///     #|
+///     #|  abc
+///   ),
+/// )
+/// inspect(
+///   mandatory_line + nest(text("abc")),
+///   content=(
+///     #|
+///     #|abc
+///   ),
+/// )
+/// ```
+pub let mandatory_line : Document = MandatoryLine
+
+///|
+/// Inserts at least one space between concatenated text segments.
+/// ```
+/// inspect(
+///   text("f();") + mandatory_space + text("//todo"),
+///   content="f(); //todo",
+/// )
+/// inspect(
+///   text("f();") + space + mandatory_space + text("//todo"),
+///   content="f(); //todo",
+/// )
+/// inspect(
+///   text("f();") + hardline + mandatory_space + text("//todo"),
+///   content=(
+///     #|f();
+///     #|//todo
+///   ),
+/// )
+/// ```
+pub let mandatory_space : Document = MandatorySpace
 
 ///|
 pub fn text(s : String) -> Document {
@@ -55,7 +96,7 @@ pub fn list(ls : Array[Document]) -> Document {
 /// but if the `doc` doesn't fit, or contains a `hardline`, all the `switch` 
 /// inside the `doc` will be rendered with the right document.
 pub fn group(doc : Document) -> Document {
-  Group(requirement(doc), doc)
+  Group(doc.requirement(), doc)
 }
 
 ///|
@@ -63,21 +104,21 @@ pub fn group(doc : Document) -> Document {
 /// The left document represents the flatten mode, and the right one the pretty mode.
 /// If the left document fits, it will be rendered, otherwise the right one.
 pub fn switch(l : Document, r : Document) -> Document {
-  Switch(requirement(l), l, r)
+  Switch(l.requirement(), l, r)
 }
 
 ///|
 /// Nest the document by `n` spaces.
 /// Any line breaks inside the nested document will be indented by `n` spaces.
 pub fn nest(indent? : Int = 2, doc : Document) -> Document {
-  Nest(requirement(doc), indent, doc)
+  Nest(doc.requirement(), indent, doc)
 }
 
 ///|
 /// Concatenate two documents.
 /// You can also use the `+` operator.
 pub fn concat(l : Document, r : Document) -> Document {
-  Concat(requirement(l) + requirement(r), l, r)
+  Concat(l.requirement() + r.requirement(), l, r)
 }
 
 ///|
@@ -202,4 +243,10 @@ pub fn string(str : String) -> Document {
 pub fn flow(doc : Array[Document]) -> Document {
   let sep = group(softline)
   doc.iter().map(pretty).intersperse(sep).fold(init=empty, concat)
+}
+
+///|
+pub fn dynamic(f : (Context) -> Document) -> Document {
+  let req = f({ indent: 0, width: 80, next_indent: 0 }).requirement() //FIXME
+  Dynamic(req, f)
 }

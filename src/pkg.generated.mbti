@@ -23,6 +23,8 @@ fn concat(Document, Document) -> Document
 
 fn ctor(pkg? : String, ty? : String, String, Array[Document], labeled? : Map[String, Document]) -> Document
 
+fn dynamic((Context) -> Document) -> Document
+
 let empty : Document
 
 fn flow(Array[Document]) -> Document
@@ -34,6 +36,10 @@ let hardline : Document
 let line : Document
 
 fn list(Array[Document]) -> Document
+
+let mandatory_line : Document
+
+let mandatory_space : Document
 
 fn nest(indent? : Int, Document) -> Document
 
@@ -66,10 +72,31 @@ fn tuple(Array[Document]) -> Document
 // Errors
 
 // Types and methods
+pub struct Context {
+  indent : Int
+  next_indent : Int
+  width : Int
+}
+fn Context::current_remain(Self) -> Requirement
+fn Context::next_remain(Self) -> Requirement
+impl Show for Context
+
 type Document
+fn Document::requirement(Self) -> Requirement
 impl Pretty for Document
 impl Add for Document
 impl Show for Document
+
+pub(all) enum Requirement {
+  Space(Int)
+  Infinite
+}
+impl Add for Requirement
+impl Compare for Requirement
+impl Eq for Requirement
+impl Show for Requirement
+
+type State
 
 // Type aliases
 
