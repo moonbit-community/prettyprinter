@@ -114,6 +114,6 @@ pub impl Show for Document with output(self, buf) {
 }
 
 ///|
-pub impl Add for Document with op_add(self, other) {
+pub impl Add for Document with add(self, other) {
   concat(self, other)
 }

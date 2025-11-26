@@ -263,13 +263,6 @@ pub impl Pretty for Json with pretty(json : Json) -> Document {
 ///   ),
 /// )
 /// ```
-pub impl[A : Pretty] Pretty for @immut/list.T[A] with pretty(list) {
-  let elems = list
-    .map(pretty)
-    .intersperse(text(",") + line)
-    .fold(init=empty, concat)
-  group(brackets(nest(softline + elems) + softline))
-}
 
 ///|
 /// Pretty print a `@list.List`
@@ -400,7 +393,9 @@ pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
 ///   ),
 /// )
 /// ```
-pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.T[A, B] with pretty(map) {
+pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.HashMap[A, B] with pretty(
+  map,
+) {
   let entries = map
     .iter()
     .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
@@ -425,7 +420,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.T[A, B] with pretty(map) {
 /// )
 /// ```
 /// 
-pub impl[A : Pretty] Pretty for @hashset.T[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @hashset.HashSet[A] with pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -435,7 +430,9 @@ pub impl[A : Pretty] Pretty for @hashset.T[A] with pretty(set) {
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.T[A, B] with pretty(map) {
+pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.SortedMap[A, B] with pretty(
+  map,
+) {
   let entries = map
     .iter()
     .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
@@ -444,7 +441,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.T[A, B] with pretty(map)
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @sorted_set.T[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @sorted_set.SortedSet[A] with pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -454,7 +451,7 @@ pub impl[A : Pretty] Pretty for @sorted_set.T[A] with pretty(set) {
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @queue.T[A] with pretty(queue) {
+pub impl[A : Pretty] Pretty for @queue.Queue[A] with pretty(queue) {
   let elems = queue
     .iter()
     .map(pretty)
@@ -471,12 +468,12 @@ pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A] with pretty(
 }
 
 ///|
-pub impl Pretty for @buffer.T with pretty(buffer) {
+pub impl Pretty for @buffer.Buffer with pretty(buffer) {
   buffer.to_bytes() |> pretty()
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @deque.T[A] with pretty(deque) {
+pub impl[A : Pretty] Pretty for @deque.Deque[A] with pretty(deque) {
   deque.iter().to_array() |> pretty()
 }
 
@@ -496,7 +493,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with pretty(self) {
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.T[A, B] with pretty(
+pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.HashMap[A, B] with pretty(
   map,
 ) {
   let entries = map
@@ -507,7 +504,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.T[A, B] with pretty(
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @immut/hashset.T[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @immut/hashset.HashSet[A] with pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -517,7 +514,7 @@ pub impl[A : Pretty] Pretty for @immut/hashset.T[A] with pretty(set) {
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.T[A, B] with pretty(
+pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.SortedMap[A, B] with pretty(
   map,
 ) {
   let entries = map
@@ -528,7 +525,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.T[A, B] with prett
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @immut/sorted_set.T[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @immut/sorted_set.SortedSet[A] with pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -545,15 +542,6 @@ pub impl[A : Pretty] Pretty for @immut/sorted_set.T[A] with pretty(set) {
 /// ```
 pub impl Pretty for @moonbitlang/core/bigint.BigInt with pretty(i) {
   text(i.to_string())
-}
-
-///|
-/// Pretty print a rational type.
-/// ```
-/// pretty(@rational.new(1L, 2L).unwrap()) |> inspect(content="1/2")
-/// ```
-pub impl Pretty for @moonbitlang/core/rational.T with pretty(rational) {
-  text(rational.to_string())
 }
 
 ///|

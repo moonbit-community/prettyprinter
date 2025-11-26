@@ -5,7 +5,7 @@ pub(all) enum Requirement {
 } derive(Show)
 
 ///|
-pub impl Add for Requirement with op_add(self, other) {
+pub impl Add for Requirement with add(self, other) {
   match (self, other) {
     (Space(a), Space(b)) => Space(a + b)
     _ => Infinite
@@ -22,7 +22,7 @@ pub impl Compare for Requirement with compare(self, other) {
 }
 
 ///|
-pub impl Eq for Requirement with op_equal(self, other) {
+pub impl Eq for Requirement with equal(self, other) {
   match (self, other) {
     (Space(a), Space(b)) => a == b
     (Infinite, Infinite) => true
