@@ -11,7 +11,7 @@ import(
 
 // Types and methods
 type Tree[A]
-impl[A : @prettyprinter.Pretty] @prettyprinter.Pretty for Tree[A]
+pub impl[A : @prettyprinter.Pretty] @prettyprinter.Pretty for Tree[A]
 
 // Type aliases
 
