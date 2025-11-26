@@ -96,8 +96,6 @@ impl Compare for Requirement
 impl Eq for Requirement
 impl Show for Requirement
 
-type State
-
 // Type aliases
 
 // Traits
