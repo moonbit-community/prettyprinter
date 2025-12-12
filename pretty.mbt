@@ -461,7 +461,7 @@ pub impl[A : Pretty] Pretty for @queue.Queue[A] with pretty(queue) {
 }
 
 ///|
-pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.T[A] with pretty(
+pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A] with pretty(
   queue,
 ) {
   pretty(queue.to_array())
