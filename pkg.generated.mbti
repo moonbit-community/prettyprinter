@@ -122,8 +122,8 @@ pub impl Pretty for Bytes
 pub impl Pretty for @bigint.BigInt
 pub impl Pretty for @buffer.Buffer
 pub impl[A : Pretty] Pretty for Array[A]
-pub impl[A : Pretty] Pretty for Iter[A]
-pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B]
+pub impl[A : Pretty] Pretty for Iterator[A]
+pub impl[A : Pretty, B : Pretty] Pretty for Iterator2[A, B]
 pub impl Pretty for Json
 pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B]
 pub impl[A : Pretty] Pretty for @deque.Deque[A]

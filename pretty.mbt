@@ -483,13 +483,13 @@ pub impl[A : Pretty] Pretty for @immut/array.T[A] with pretty(array) {
 }
 
 ///|
-pub impl[A : Pretty] Pretty for Iter[A] with pretty(self) {
+pub impl[A : Pretty] Pretty for Iterator[A] with pretty(self) {
   self.to_array() |> pretty()
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with pretty(self) {
-  self.to_array() |> pretty()
+pub impl[A : Pretty, B : Pretty] Pretty for Iterator2[A, B] with pretty(self) {
+  self.iterator().to_array() |> pretty()
 }
 
 ///|
