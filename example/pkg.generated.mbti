@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
 package "Yoorkin/prettyprinter/example"
 
-import(
-  "Yoorkin/prettyprinter"
-)
+import {
+  "Yoorkin/prettyprinter",
+}
 
 // Values
 
