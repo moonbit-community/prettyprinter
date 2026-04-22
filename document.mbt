@@ -18,7 +18,18 @@ pub struct Context {
   indent : Int
   next_indent : Int
   width : Int
-} derive(Show)
+}
+
+///|
+pub impl Show for Context with output(self, buf) {
+  buf.write_string("{ indent: ")
+  buf.write_string(self.indent.to_string())
+  buf.write_string(", next_indent: ")
+  buf.write_string(self.next_indent.to_string())
+  buf.write_string(", width: ")
+  buf.write_string(self.width.to_string())
+  buf.write_string(" }")
+}
 
 ///|
 pub fn Context::current_remain(self : Self) -> Requirement {
@@ -82,9 +93,11 @@ fn render_document(width : Int, doc : Document) -> String {
         buf.write_string(s)
         column += s.length()
       }
-      Concat(_, l, r) =>
-        stack..push({ indent, fit, doc: r })..push({ indent, fit, doc: l })
-      Nest(_, i, d) => stack..push({ indent: indent + i, fit, doc: d })
+      Concat(_, l, r) => {
+        stack.push({ indent, fit, doc: r })
+        stack.push({ indent, fit, doc: l })
+      }
+      Nest(_, i, d) => stack.push({ indent: indent + i, fit, doc: d })
       Switch(_, a, b) =>
         stack.push(
           if fit {
