@@ -1,4 +1,21 @@
 import {
+  "moonbitlang/core/bigint",
+  "moonbitlang/core/buffer",
+  "moonbitlang/core/builtin",
+  "moonbitlang/core/cmp",
+  "moonbitlang/core/deque",
+  "moonbitlang/core/hashmap",
+  "moonbitlang/core/hashset",
+  "moonbitlang/core/immut/array" @immut/array,
+  "moonbitlang/core/immut/hashmap" @immut/hashmap,
+  "moonbitlang/core/immut/hashset" @immut/hashset,
+  "moonbitlang/core/immut/sorted_map" @immut/sorted_map,
+  "moonbitlang/core/immut/sorted_set" @immut/sorted_set,
+  "moonbitlang/core/list",
+  "moonbitlang/core/priority_queue",
+  "moonbitlang/core/queue",
+  "moonbitlang/core/sorted_map",
+  "moonbitlang/core/sorted_set",
 }
 
 options(
