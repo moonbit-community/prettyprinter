@@ -1,16 +1,16 @@
 // Generated using `moon info`, DON'T EDIT IT
 package "Yoorkin/prettyprinter"
 
-import(
-  "moonbitlang/core/bigint"
-  "moonbitlang/core/buffer"
-  "moonbitlang/core/deque"
-  "moonbitlang/core/immut/array"
-  "moonbitlang/core/list"
-  "moonbitlang/core/priority_queue"
-  "moonbitlang/core/queue"
-  "moonbitlang/core/set"
-)
+import {
+  "moonbitlang/core/bigint",
+  "moonbitlang/core/buffer",
+  "moonbitlang/core/deque",
+  "moonbitlang/core/immut/vector",
+  "moonbitlang/core/list",
+  "moonbitlang/core/priority_queue",
+  "moonbitlang/core/queue",
+  "moonbitlang/core/set",
+}
 
 // Values
 pub fn braces(Document) -> Document
@@ -129,11 +129,11 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B]
 pub impl[A : Pretty] Pretty for @deque.Deque[A]
 pub impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/hashmap.HashMap[A, B]
 pub impl[A : Pretty] Pretty for @moonbitlang/core/hashset.HashSet[A]
-pub impl[A : Pretty] Pretty for @array.T[A]
 pub impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/hashmap.HashMap[A, B]
 pub impl[A : Pretty] Pretty for @moonbitlang/core/immut/hashset.HashSet[A]
 pub impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.SortedMap[A, B]
 pub impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.SortedSet[A]
+pub impl[A : Pretty] Pretty for @vector.Vector[A]
 pub impl[A : Pretty] Pretty for @list.List[A]
 pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A]
 pub impl[A : Pretty] Pretty for @queue.Queue[A]
