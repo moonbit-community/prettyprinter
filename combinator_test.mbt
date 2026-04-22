@@ -60,7 +60,7 @@ test "json" {
       "obj3": { "a": true, "b": true },
       "obj4": { "a": true, "b": true },
     },
-    "key3": [true, false, Null],
+    "key3": [true, false, Json::null()],
   }
   inspect(
     @prettyprinter.render(json),
