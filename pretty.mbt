@@ -478,8 +478,8 @@ pub impl[A : Pretty] Pretty for @deque.Deque[A] with pretty(deque) {
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @immut/array.T[A] with pretty(array) {
-  array.to_array() |> pretty()
+pub impl[A : Pretty] Pretty for @immut/vector.Vector[A] with pretty(vector) {
+  vector.to_array() |> pretty()
 }
 
 ///|
