@@ -2,7 +2,19 @@
 pub(all) enum Requirement {
   Space(Int)
   Infinite
-} derive(Show)
+}
+
+///|
+pub impl Show for Requirement with output(self, buf) {
+  match self {
+    Space(n) => {
+      buf.write_string("Space(")
+      buf.write_string(n.to_string())
+      buf.write_string(")")
+    }
+    Infinite => buf.write_string("Infinite")
+  }
+}
 
 ///|
 pub impl Add for Requirement with add(self, other) {
