@@ -17,7 +17,3 @@ import {
   "moonbitlang/core/sorted_map",
   "moonbitlang/core/sorted_set",
 }
-
-options(
-  "alert-list": "-deprecated",
-)
