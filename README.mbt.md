@@ -9,11 +9,25 @@ types such as `Array`, `Map`, and `Json`.
 
 Use `render` to pretty print any type implemented `Pretty` trait.
 
-```moonbit
-let map = {
-  "name": ["John", "Mike"], "age": ["15","18"], "id": ["11109121","2000012312"]
+```mbt check
+///|
+test {
+  let record : Map[String, Array[String]] = {
+    "name": ["John", "Mike"],
+    "age": ["15", "18"],
+    "id": ["11109121", "2000012312"],
+  }
+  inspect(
+    record |> @prettyprinter.render(),
+    content=(
+      #|{
+      #|  "name": ["John", "Mike"],
+      #|  "age": ["15", "18"],
+      #|  "id": ["11109121", "2000012312"]
+      #|}
+    ),
+  )
 }
-map |> @prettyprinter.render() |> println()
 ```
 
 output:
