@@ -3,9 +3,7 @@
 A declarative-style pretty printer engine, which includes printers for built-in 
 types such as `Array`, `Map`, and `Json`.
 
-# Usage
-
-## Print Value
+## Usage
 
 Use `render` to pretty print any type implemented `Pretty` trait.
 
@@ -27,15 +25,6 @@ test {
       #|}
     ),
   )
-}
-```
-
-output:
-```
-{
-  "name": ["John", "Mike"],
-  "age": ["15", "18"],
-  "id": ["11109121", "2000012312"]
 }
 ```
 
