@@ -21,7 +21,7 @@ pub struct Context {
 }
 
 ///|
-pub impl Show for Context with output(self, buf) {
+pub impl Show for Context with fn output(self, buf) {
   buf.write_string("{ indent: ")
   buf.write_string(self.indent.to_string())
   buf.write_string(", next_indent: ")
@@ -51,7 +51,7 @@ priv struct State {
 ///|
 fn render_document(width : Int, doc : Document) -> String {
   let buf = StringBuilder::new()
-  let stack = [{ indent: 0, fit: false, doc }]
+  let stack = [{ indent: 0, fit: false, doc, }]
   let mut column = 0
   // record the MandatoryLine that has not yet been decided to print
   let mut dangling_newline : Int? = None
@@ -66,7 +66,7 @@ fn render_document(width : Int, doc : Document) -> String {
     }
   }
 
-  while stack.pop() is Some({ indent, fit, doc }) {
+  while stack.pop() is Some({ indent, fit, doc, }) {
     match doc {
       Empty => ()
       Line => {
@@ -94,27 +94,27 @@ fn render_document(width : Int, doc : Document) -> String {
         column += s.length()
       }
       Concat(_, l, r) => {
-        stack.push({ indent, fit, doc: r })
-        stack.push({ indent, fit, doc: l })
+        stack.push({ indent, fit, doc: r, })
+        stack.push({ indent, fit, doc: l, })
       }
-      Nest(_, i, d) => stack.push({ indent: indent + i, fit, doc: d })
+      Nest(_, i, d) => stack.push({ indent: indent + i, fit, doc: d, })
       Switch(_, a, b) =>
         stack.push(
           if fit {
-            { indent, fit, doc: a }
+            { indent, fit, doc: a, }
           } else {
-            { indent, fit, doc: b }
+            { indent, fit, doc: b, }
           },
         )
       Group(req, d) => {
         let fit = fit || Requirement::Space(column) + req <= Space(width)
-        stack.push({ indent, fit, doc: d })
+        stack.push({ indent, fit, doc: d, })
       }
       MandatoryLine => dangling_newline = Some(indent)
       MandatorySpace => dangling_space = true
       Dynamic(_, f) => {
-        let doc = f({ indent: column, width, next_indent: indent })
-        stack.push({ indent, fit, doc })
+        let doc = f({ indent: column, width, next_indent: indent, })
+        stack.push({ indent, fit, doc, })
       }
     }
   }
@@ -122,11 +122,11 @@ fn render_document(width : Int, doc : Document) -> String {
 }
 
 ///|
-pub impl Show for Document with output(self, buf) {
+pub impl Show for Document with fn output(self, buf) {
   buf.write_string(render_document(80, self))
 }
 
 ///|
-pub impl Add for Document with add(self, other) {
+pub impl Add for Document with fn add(self, other) {
   concat(self, other)
 }

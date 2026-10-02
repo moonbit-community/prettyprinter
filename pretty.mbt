@@ -1,6 +1,6 @@
 ///|
 pub(open) trait Pretty {
-  pretty(Self) -> Document
+  fn pretty(Self) -> Document
 }
 
 ///|
@@ -29,79 +29,79 @@ pub fn[A : Pretty] render(document : A, width? : Int = 80) -> String {
 /// ```
 /// pretty("Hello, World!") |> inspect(content="\"Hello, World!\"")
 /// ```
-pub impl Pretty for String with pretty(str) {
+pub impl Pretty for String with fn pretty(str) {
   string(str)
 }
 
 ///|
 /// Pretty print a Bool.
-pub impl Pretty for Bool with pretty(b) {
+pub impl Pretty for Bool with fn pretty(b) {
   text(b.to_string())
 }
 
 ///|
 /// Pretty print an Int16.
-pub impl Pretty for Int16 with pretty(i) {
+pub impl Pretty for Int16 with fn pretty(i) {
   text(i.to_string())
 }
 
 ///|
 /// Pretty print an Int.
-pub impl Pretty for Int with pretty(i) {
+pub impl Pretty for Int with fn pretty(i) {
   text(i.to_string())
 }
 
 ///|
 /// Pretty print an Int64.
-pub impl Pretty for Int64 with pretty(i) {
+pub impl Pretty for Int64 with fn pretty(i) {
   text(i.to_string())
 }
 
 ///|
 /// Pretty print an UInt16.
-pub impl Pretty for UInt16 with pretty(i) {
+pub impl Pretty for UInt16 with fn pretty(i) {
   text(i.to_string())
 }
 
 ///|
 /// Pretty print a UInt.
-pub impl Pretty for UInt with pretty(i) {
+pub impl Pretty for UInt with fn pretty(i) {
   text(i.to_string())
 }
 
 ///|
 /// Pretty print a UInt64.
-pub impl Pretty for UInt64 with pretty(i) {
+pub impl Pretty for UInt64 with fn pretty(i) {
   text(i.to_string())
 }
 
 ///|
 /// Pretty print a character.
-pub impl Pretty for Char with pretty(c) {
+pub impl Pretty for Char with fn pretty(c) {
   char(c)
 }
 
 ///|
 /// Pretty print a double.
-pub impl Pretty for Double with pretty(d) {
+pub impl Pretty for Double with fn pretty(d) {
   text(d.to_string())
 }
 
 ///|
 /// Pretty print a float.
-pub impl Pretty for Float with pretty(f) {
+pub impl Pretty for Float with fn pretty(f) {
   text(f.to_string())
 }
 
 ///|
 /// Pretty print a document.
-pub impl Pretty for Document with pretty(doc) {
+pub impl Pretty for Document with fn pretty(doc) {
   doc
 }
 
 ///|
 /// Pretty print a unit value.
-pub impl Pretty for Unit with pretty(_unit) {
+pub impl Pretty for Unit with fn pretty(_unit) {
   text("()")
 }
 
@@ -112,7 +112,7 @@ pub impl Pretty for Unit with pretty(_unit) {
 /// let arr = [1, 2, 3, 4]
 /// inspect(pretty(arr), content="[1, 2, 3, 4]")
 /// ```
-pub impl[A : Pretty] Pretty for Array[A] with pretty(xs) {
+pub impl[A : Pretty] Pretty for Array[A] with fn pretty(xs) {
   group(
     char('[') +
     nest(softline + separate(char(',') + line, xs.map(A::pretty))) +
@@ -128,7 +128,7 @@ pub impl[A : Pretty] Pretty for Array[A] with pretty(xs) {
 /// let opt = Some(5)
 /// inspect(pretty(opt), content="Some(5)")
 /// ``` 
-pub impl[A : Pretty] Pretty for A? with pretty(opt) {
+pub impl[A : Pretty] Pretty for A? with fn pretty(opt) {
   match opt {
     None => text("None")
     Some(x) => group(text("Some(") + x.pretty() + char(')'))
@@ -146,7 +146,7 @@ pub impl[A : Pretty] Pretty for A? with pretty(opt) {
 ///   #|Err("error")
 /// ))
 /// ```
-pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
+pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with fn pretty(res) {
   match res {
     Ok(x) => group(text("Ok(") + x.pretty() + char(')'))
     Err(e) => group(text("Err(") + e.pretty() + char(')'))
@@ -178,7 +178,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B] with pretty(res) {
 /// )
 /// ```
 /// 
-pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
+pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with fn pretty(m) {
   let entries = m
     .iter()
     .map(p => group(p.0.pretty() + char(':') + space + p.1.pretty()))
@@ -215,7 +215,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B] with pretty(m) {
 ///   ),
 /// )
 /// ``` 
-pub impl Pretty for Json with pretty(json : Json) -> Document {
+pub impl Pretty for Json with fn pretty(json : Json) -> Document {
   fn pair(pair : (String, Json)) -> Document {
     string(pair.0) + text(":") + space + pretty(pair.1)
   }
@@ -281,7 +281,7 @@ pub impl Pretty for Json with pretty(json : Json) -> Document {
 ///   ),
 /// )
 /// ```
-pub impl[A : Pretty] Pretty for @list.List[A] with pretty(list) {
+pub impl[A : Pretty] Pretty for @list.List[A] with fn pretty(list) {
   let elems = list
     .map(pretty)
     .intersperse(text(",") + line)
@@ -306,7 +306,7 @@ pub impl[A : Pretty] Pretty for @list.List[A] with pretty(list) {
 ///   ),
 /// )
 /// ```
-pub impl[A : Pretty] Pretty for Set[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for Set[A] with fn pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -316,7 +316,7 @@ pub impl[A : Pretty] Pretty for Set[A] with pretty(set) {
 }
 
 ///|
-pub impl Pretty for Byte with pretty(byte) {
+pub impl Pretty for Byte with fn pretty(byte) {
   text(byte.to_string())
 }
 
@@ -337,7 +337,7 @@ pub impl Pretty for Byte with pretty(byte) {
 ///   ),
 /// )
 /// ```
-pub impl Pretty for Bytes with pretty(bytes) {
+pub impl Pretty for Bytes with fn pretty(bytes) {
   let elems = bytes
     .iter()
     .map(pretty)
@@ -366,7 +366,7 @@ pub impl Pretty for Bytes with pretty(bytes) {
 ///   ),
 /// )
 /// ```
-pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
+pub impl[A : Pretty] Pretty for FixedArray[A] with fn pretty(array) {
   let elems = array
     .iter()
     .map(pretty)
@@ -393,7 +393,7 @@ pub impl[A : Pretty] Pretty for FixedArray[A] with pretty(array) {
 ///   ),
 /// )
 /// ```
-pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.HashMap[A, B] with pretty(
+pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.HashMap[A, B] with fn pretty(
   map,
 ) {
   let entries = map
@@ -420,7 +420,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @hashmap.HashMap[A, B] with pretty(
 /// )
 /// ```
 /// 
-pub impl[A : Pretty] Pretty for @hashset.HashSet[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @hashset.HashSet[A] with fn pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -430,7 +430,7 @@ pub impl[A : Pretty] Pretty for @hashset.HashSet[A] with pretty(set) {
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.SortedMap[A, B] with pretty(
+pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.SortedMap[A, B] with fn pretty(
   map,
 ) {
   let entries = map
@@ -441,7 +441,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @sorted_map.SortedMap[A, B] with pre
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @sorted_set.SortedSet[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @sorted_set.SortedSet[A] with fn pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -451,7 +451,7 @@ pub impl[A : Pretty] Pretty for @sorted_set.SortedSet[A] with pretty(set) {
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @queue.Queue[A] with pretty(queue) {
+pub impl[A : Pretty] Pretty for @queue.Queue[A] with fn pretty(queue) {
   let elems = queue
     .iter()
     .map(pretty)
@@ -461,39 +461,39 @@ pub impl[A : Pretty] Pretty for @queue.Queue[A] with pretty(queue) {
 }
 
 ///|
-pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A] with pretty(
+pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A] with fn pretty(
   queue,
 ) {
   pretty(queue.to_array())
 }
 
 ///|
-pub impl Pretty for @buffer.Buffer with pretty(buffer) {
+pub impl Pretty for @buffer.Buffer with fn pretty(buffer) {
   buffer.to_bytes() |> pretty()
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @deque.Deque[A] with pretty(deque) {
+pub impl[A : Pretty] Pretty for @deque.Deque[A] with fn pretty(deque) {
   deque.iter().to_array() |> pretty()
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @immut/vector.Vector[A] with pretty(vector) {
+pub impl[A : Pretty] Pretty for @immut/vector.Vector[A] with fn pretty(vector) {
   vector.to_array() |> pretty()
 }
 
 ///|
-pub impl[A : Pretty] Pretty for Iter[A] with pretty(self) {
+pub impl[A : Pretty] Pretty for Iter[A] with fn pretty(self) {
   self.to_array() |> pretty()
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with pretty(self) {
+pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B] with fn pretty(self) {
   self.to_array() |> pretty()
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.HashMap[A, B] with pretty(
+pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.HashMap[A, B] with fn pretty(
   map,
 ) {
   let entries = map
@@ -504,7 +504,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/hashmap.HashMap[A, B] with pr
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @immut/hashset.HashSet[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @immut/hashset.HashSet[A] with fn pretty(set) {
   let elems = set
     .iter()
     .map(pretty)
@@ -514,7 +514,7 @@ pub impl[A : Pretty] Pretty for @immut/hashset.HashSet[A] with pretty(set) {
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.SortedMap[A, B] with pretty(
+pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.SortedMap[A, B] with fn pretty(
   map,
 ) {
   let entries = map
@@ -525,7 +525,9 @@ pub impl[A : Pretty, B : Pretty] Pretty for @immut/sorted_map.SortedMap[A, B] wi
 }
 
 ///|
-pub impl[A : Pretty] Pretty for @immut/sorted_set.SortedSet[A] with pretty(set) {
+pub impl[A : Pretty] Pretty for @immut/sorted_set.SortedSet[A] with fn pretty(
+  set,
+) {
   let elems = set
     .iter()
     .map(pretty)
@@ -540,7 +542,7 @@ pub impl[A : Pretty] Pretty for @immut/sorted_set.SortedSet[A] with pretty(set) 
 /// let i = @moonbitlang/core/bigint.BigInt::from_string("123456789012345678901234567890")
 /// pretty(i) |> inspect(content="123456789012345678901234567890")
 /// ```
-pub impl Pretty for @moonbitlang/core/bigint.BigInt with pretty(i) {
+pub impl Pretty for @moonbitlang/core/bigint.BigInt with fn pretty(i) {
   text(i.to_string())
 }
 
@@ -548,7 +550,7 @@ pub impl Pretty for @moonbitlang/core/bigint.BigInt with pretty(i) {
 let tuple_sep : Document = text(",") + line
 
 ///|
-pub impl[A : Pretty, B : Pretty] Pretty for (A, B) with pretty(pair) {
+pub impl[A : Pretty, B : Pretty] Pretty for (A, B) with fn pretty(pair) {
   parens(
     group(
       nest(softline + pretty(pair.0) + tuple_sep + pretty(pair.1)) + softline,
@@ -557,7 +559,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for (A, B) with pretty(pair) {
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty, C : Pretty] Pretty for (A, B, C) with pretty(
+pub impl[A : Pretty, B : Pretty, C : Pretty] Pretty for (A, B, C) with fn pretty(
   tuple,
 ) {
   parens(
@@ -576,7 +578,7 @@ pub impl[A : Pretty, B : Pretty, C : Pretty] Pretty for (A, B, C) with pretty(
 }
 
 ///|
-pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty] Pretty for (A, B, C, D) with pretty(
+pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty] Pretty for (A, B, C, D) with fn pretty(
   tuple,
 ) {
   parens(
@@ -603,7 +605,7 @@ pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty] Pretty for 
   C,
   D,
   E,
-) with pretty(tuple) {
+) with fn pretty(tuple) {
   parens(
     group(
       nest(
@@ -631,7 +633,7 @@ pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty]
   D,
   E,
   F,
-) with pretty(tuple) {
+) with fn pretty(tuple) {
   parens(
     group(
       nest(
@@ -662,7 +664,7 @@ pub impl[
   E : Pretty,
   F : Pretty,
   G : Pretty,
-] Pretty for (A, B, C, D, E, F, G) with pretty(tuple) {
+] Pretty for (A, B, C, D, E, F, G) with fn pretty(tuple) {
   parens(
     group(
       nest(
@@ -696,7 +698,7 @@ pub impl[
   F : Pretty,
   G : Pretty,
   H : Pretty,
-] Pretty for (A, B, C, D, E, F, G, H) with pretty(tuple) {
+] Pretty for (A, B, C, D, E, F, G, H) with fn pretty(tuple) {
   parens(
     group(
       nest(
@@ -733,7 +735,7 @@ pub impl[
   G : Pretty,
   H : Pretty,
   I : Pretty,
-] Pretty for (A, B, C, D, E, F, G, H, I) with pretty(tuple) {
+] Pretty for (A, B, C, D, E, F, G, H, I) with fn pretty(tuple) {
   parens(
     group(
       nest(
