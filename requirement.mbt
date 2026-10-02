@@ -5,7 +5,7 @@ pub(all) enum Requirement {
 }
 
 ///|
-pub impl Show for Requirement with output(self, buf) {
+pub impl Show for Requirement with fn output(self, buf) {
   match self {
     Space(n) => {
       buf.write_string("Space(")
@@ -17,7 +17,7 @@ pub impl Show for Requirement with output(self, buf) {
 }
 
 ///|
-pub impl Add for Requirement with add(self, other) {
+pub impl Add for Requirement with fn add(self, other) {
   match (self, other) {
     (Space(a), Space(b)) => Space(a + b)
     _ => Infinite
@@ -25,7 +25,7 @@ pub impl Add for Requirement with add(self, other) {
 }
 
 ///|
-pub impl Compare for Requirement with compare(self, other) {
+pub impl Compare for Requirement with fn compare(self, other) {
   match (self, other) {
     (Space(a), Space(b)) => a - b
     (Infinite, _) => 1
@@ -34,7 +34,7 @@ pub impl Compare for Requirement with compare(self, other) {
 }
 
 ///|
-pub impl Eq for Requirement with equal(self, other) {
+pub impl Eq for Requirement with fn equal(self, other) {
   match (self, other) {
     (Space(a), Space(b)) => a == b
     (Infinite, Infinite) => true

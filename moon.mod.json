@@ -1,9 +1,0 @@
-{
-  "name": "moonbit-community/prettyprinter",
-  "version": "0.4.10",
-  "readme": "README.md",
-  "repository": "https://github.com/moonbit-community/prettyprinter",
-  "license": "Apache-2.0",
-  "keywords": ["pretty printer", "format", "utils", "string"],
-  "description": "pretty printer for moonbit"
-}

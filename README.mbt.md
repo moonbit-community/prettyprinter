@@ -40,7 +40,7 @@ enum Tree[A] {
 }
 
 ///|
-impl[A : @prettyprinter.Pretty] @prettyprinter.Pretty for Tree[A] with pretty(
+impl[A : @prettyprinter.Pretty] @prettyprinter.Pretty for Tree[A] with fn pretty(
   tree : Tree[A],
 ) {
   match tree {

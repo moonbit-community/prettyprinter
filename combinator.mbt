@@ -247,6 +247,6 @@ pub fn flow(doc : Array[Document]) -> Document {
 
 ///|
 pub fn dynamic(f : (Context) -> Document) -> Document {
-  let req = f({ indent: 0, width: 80, next_indent: 0 }).requirement() //FIXME
+  let req = f({ indent: 0, width: 80, next_indent: 0, }).requirement() //FIXME
   Dynamic(req, f)
 }
