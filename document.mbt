@@ -50,7 +50,7 @@ priv struct State {
 
 ///|
 fn render_document(width : Int, doc : Document) -> String {
-  let buf = StringBuilder::new()
+  let buf = StringBuilder()
   let stack = [{ indent: 0, fit: false, doc, }]
   let mut column = 0
   // record the MandatoryLine that has not yet been decided to print
@@ -130,3 +130,14 @@ pub impl Show for Document with fn output(self, buf) {
 pub impl Add for Document with fn add(self, other) {
   concat(self, other)
 }
+
+///|
+/// Keep the trait methods callable as regular methods
+/// (implicit impl-to-method promotion is deprecated).
+pub extend Context with Show::{to_string, output}
+
+///|
+pub extend Document with Show::{to_string, output}
+
+///|
+pub extend Document with Add::{add}

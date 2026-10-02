@@ -461,7 +461,7 @@ pub impl[A : Pretty] Pretty for @queue.Queue[A] with fn pretty(queue) {
 }
 
 ///|
-pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A] with fn pretty(
+pub impl[A : Pretty + Compare] Pretty for @priority_queue.PriorityQueue[A] with fn pretty(
   queue,
 ) {
   pretty(queue.to_array())
@@ -762,3 +762,8 @@ pub impl[
     ),
   )
 }
+
+///|
+/// Keep `pretty` callable as a regular method
+/// (implicit impl-to-method promotion is deprecated).
+pub extend Document with Pretty::{pretty}

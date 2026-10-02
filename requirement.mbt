@@ -56,3 +56,17 @@ pub fn Document::requirement(doc : Self) -> Requirement {
     | Dynamic(req, _) => req
   }
 }
+
+///|
+/// Keep the trait methods callable as regular methods
+/// (implicit impl-to-method promotion is deprecated).
+pub extend Requirement with Show::{to_string, output}
+
+///|
+pub extend Requirement with Add::{add}
+
+///|
+pub extend Requirement with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend Requirement with Eq::{not_equal, equal}
