@@ -19,7 +19,7 @@ pub fn[A : Pretty] pretty(x : A) -> Document {
 /// # Returns
 ///
 /// The rendered string.
-pub fn[A : Pretty] render(document : A, width? : Int = 80) -> String {
+pub fn[A : Pretty] render(document : A, width~ : Int32 = 80) -> String {
   render_document(width, document.pretty())
 }
 
@@ -47,7 +47,7 @@ pub impl Pretty for Int16 with fn pretty(i) {
 
 ///|
 /// Pretty print an Int.
-pub impl Pretty for Int with fn pretty(i) {
+pub impl Pretty for Int32 with fn pretty(i) {
   text(i.to_string())
 }
 
@@ -65,7 +65,7 @@ pub impl Pretty for UInt16 with fn pretty(i) {
 
 ///|
 /// Pretty print a UInt.
-pub impl Pretty for UInt with fn pretty(i) {
+pub impl Pretty for UInt32 with fn pretty(i) {
   text(i.to_string())
 }
 
@@ -461,7 +461,7 @@ pub impl[A : Pretty] Pretty for @queue.Queue[A] with fn pretty(queue) {
 }
 
 ///|
-pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A] with fn pretty(
+pub impl[A : Pretty + Compare] Pretty for @priority_queue.PriorityQueue[A] with fn pretty(
   queue,
 ) {
   pretty(queue.to_array())
@@ -762,3 +762,8 @@ pub impl[
     ),
   )
 }
+
+///|
+/// Keep `pretty` callable as a regular method
+/// (implicit impl-to-method promotion is deprecated).
+pub extend Document with Pretty::{pretty}
