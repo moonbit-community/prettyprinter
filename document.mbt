@@ -9,15 +9,15 @@ enum Document {
   Concat(Requirement, Document, Document)
   Group(Requirement, Document)
   Switch(Requirement, Document, Document)
-  Nest(Requirement, Int, Document)
+  Nest(Requirement, Int32, Document)
   Dynamic(Requirement, (Context) -> Document)
 }
 
 ///|
 pub struct Context {
-  indent : Int
-  next_indent : Int
-  width : Int
+  indent : Int32
+  next_indent : Int32
+  width : Int32
 }
 
 ///|
@@ -43,18 +43,18 @@ pub fn Context::next_remain(self : Self) -> Requirement {
 
 ///|
 priv struct State {
-  indent : Int
+  indent : Int32
   fit : Bool
   doc : Document
 }
 
 ///|
-fn render_document(width : Int, doc : Document) -> String {
+fn render_document(width : Int32, doc : Document) -> String {
   let buf = StringBuilder()
   let stack = [{ indent: 0, fit: false, doc, }]
   let mut column = 0
   // record the MandatoryLine that has not yet been decided to print
-  let mut dangling_newline : Int? = None
+  let mut dangling_newline : Int32? = None
   // record the MandatorySpace that has not yet been decided to print
   let mut dangling_space : Bool = false
   let mut has_leading_space : Bool = false

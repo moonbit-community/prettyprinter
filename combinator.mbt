@@ -110,7 +110,7 @@ pub fn switch(l : Document, r : Document) -> Document {
 ///|
 /// Nest the document by `n` spaces.
 /// Any line breaks inside the nested document will be indented by `n` spaces.
-pub fn nest(indent? : Int = 2, doc : Document) -> Document {
+pub fn nest(indent~ : Int32 = 2, doc : Document) -> Document {
   Nest(doc.requirement(), indent, doc)
 }
 

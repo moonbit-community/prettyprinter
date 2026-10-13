@@ -1,6 +1,6 @@
 ///|
 pub(all) enum Requirement {
-  Space(Int)
+  Space(Int32)
   Infinite
 }
 
