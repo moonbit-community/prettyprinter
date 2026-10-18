@@ -79,10 +79,16 @@ pub struct Context {
 }
 pub fn Context::current_remain(Self) -> Requirement
 pub fn Context::next_remain(Self) -> Requirement
+pub fn Context::output(Self, &Logger) -> Unit
+pub fn Context::to_string(Self) -> String
 pub impl Show for Context
 
 type Document
+pub fn Document::add(Self, Self) -> Self
+pub fn Document::output(Self, &Logger) -> Unit
+pub fn Document::pretty(Self) -> Self
 pub fn Document::requirement(Self) -> Requirement
+pub fn Document::to_string(Self) -> String
 pub impl Pretty for Document
 pub impl Add for Document
 pub impl Show for Document
@@ -91,6 +97,16 @@ pub(all) enum Requirement {
   Space(Int)
   Infinite
 }
+pub fn Requirement::add(Self, Self) -> Self
+pub fn Requirement::compare(Self, Self) -> Int
+pub fn Requirement::equal(Self, Self) -> Bool
+pub fn Requirement::not_equal(Self, Self) -> Bool
+pub fn Requirement::op_ge(Self, Self) -> Bool
+pub fn Requirement::op_gt(Self, Self) -> Bool
+pub fn Requirement::op_le(Self, Self) -> Bool
+pub fn Requirement::op_lt(Self, Self) -> Bool
+pub fn Requirement::output(Self, &Logger) -> Unit
+pub fn Requirement::to_string(Self) -> String
 pub impl Add for Requirement
 pub impl Compare for Requirement
 pub impl Eq for Requirement
@@ -100,7 +116,7 @@ pub impl Show for Requirement
 
 // Traits
 pub(open) trait Pretty {
-  pretty(Self) -> Document
+  fn pretty(Self) -> Document
 }
 pub impl Pretty for Unit
 pub impl Pretty for Bool
@@ -135,7 +151,7 @@ pub impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.S
 pub impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.SortedSet[A]
 pub impl[A : Pretty] Pretty for @vector.Vector[A]
 pub impl[A : Pretty] Pretty for @list.List[A]
-pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A]
+pub impl[A : Pretty + Compare] Pretty for @priority_queue.PriorityQueue[A]
 pub impl[A : Pretty] Pretty for @queue.Queue[A]
 pub impl[A : Pretty] Pretty for @set.Set[A]
 pub impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/sorted_map.SortedMap[A, B]
@@ -148,4 +164,3 @@ pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty]
 pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty] Pretty for (A, B, C, D, E, F, G)
 pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty, H : Pretty] Pretty for (A, B, C, D, E, F, G, H)
 pub impl[A : Pretty, B : Pretty, C : Pretty, D : Pretty, E : Pretty, F : Pretty, G : Pretty, H : Pretty, I : Pretty] Pretty for (A, B, C, D, E, F, G, H, I)
-
