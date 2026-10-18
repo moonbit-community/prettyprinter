@@ -15,7 +15,8 @@ pub impl Show for Requirement with fn output(self, buf) {
     Infinite => buf.write_string("Infinite")
   }
 }
-
+///|
+pub extend Requirement with Show::{to_string, output}
 ///|
 pub impl Add for Requirement with fn add(self, other) {
   match (self, other) {
@@ -23,7 +24,8 @@ pub impl Add for Requirement with fn add(self, other) {
     _ => Infinite
   }
 }
-
+///|
+pub extend Requirement with Add::{add}
 ///|
 pub impl Compare for Requirement with fn compare(self, other) {
   match (self, other) {
@@ -32,7 +34,8 @@ pub impl Compare for Requirement with fn compare(self, other) {
     (_, Infinite) => -1
   }
 }
-
+///|
+pub extend Requirement with Compare::{op_lt, op_le, op_ge, compare, op_gt}
 ///|
 pub impl Eq for Requirement with fn equal(self, other) {
   match (self, other) {
@@ -41,7 +44,8 @@ pub impl Eq for Requirement with fn equal(self, other) {
     _ => false
   }
 }
-
+///|
+pub extend Requirement with Eq::{not_equal, equal}
 ///|
 pub fn Document::requirement(doc : Self) -> Requirement {
   match doc {

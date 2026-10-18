@@ -1,9 +1,9 @@
 ///|
 test {
   let tuple = (1, 'a')
-  inspect(pretty(tuple), content="(1, a)")
+  inspect(@prettyprinter.pretty(tuple), content="(1, a)")
   inspect(
-    render(tuple, width=3),
+    @prettyprinter.render(tuple, width=3),
     content=(
       #|(
       #|  1,
@@ -12,9 +12,9 @@ test {
     ),
   )
   let tuple = (1, 'a', false)
-  inspect(pretty(tuple), content="(1, a, false)")
+  inspect(@prettyprinter.pretty(tuple), content="(1, a, false)")
   inspect(
-    render(tuple, width=3),
+    @prettyprinter.render(tuple, width=3),
     content=(
       #|(
       #|  1,
@@ -24,9 +24,9 @@ test {
     ),
   )
   let tuple = (1, 'a', false, 1.5)
-  inspect(pretty(tuple), content="(1, a, false, 1.5)")
+  inspect(@prettyprinter.pretty(tuple), content="(1, a, false, 1.5)")
   inspect(
-    render(tuple, width=3),
+    @prettyprinter.render(tuple, width=3),
     content=(
       #|(
       #|  1,
@@ -37,9 +37,9 @@ test {
     ),
   )
   let tuple = (1, 'a', false, 1.5, Some(1))
-  inspect(pretty(tuple), content="(1, a, false, 1.5, Some(1))")
+  inspect(@prettyprinter.pretty(tuple), content="(1, a, false, 1.5, Some(1))")
   inspect(
-    render(tuple, width=10),
+    @prettyprinter.render(tuple, width=10),
     content=(
       #|(
       #|  1,
@@ -52,13 +52,13 @@ test {
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello")
   inspect(
-    pretty(tuple),
+    @prettyprinter.pretty(tuple),
     content=(
       #|(1, a, false, 1.5, Some(1), "hello")
     ),
   )
   inspect(
-    render(tuple, width=10),
+    @prettyprinter.render(tuple, width=10),
     content=(
       #|(
       #|  1,
@@ -72,13 +72,13 @@ test {
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello", 5)
   inspect(
-    pretty(tuple),
+    @prettyprinter.pretty(tuple),
     content=(
       #|(1, a, false, 1.5, Some(1), "hello", 5)
     ),
   )
   inspect(
-    render(tuple, width=10),
+    @prettyprinter.render(tuple, width=10),
     content=(
       #|(
       #|  1,
@@ -93,13 +93,13 @@ test {
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello", 5, 6)
   inspect(
-    pretty(tuple),
+    @prettyprinter.pretty(tuple),
     content=(
       #|(1, a, false, 1.5, Some(1), "hello", 5, 6)
     ),
   )
   inspect(
-    render(tuple, width=10),
+    @prettyprinter.render(tuple, width=10),
     content=(
       #|(
       #|  1,
@@ -115,13 +115,13 @@ test {
   )
   let tuple = (1, 'a', false, 1.5, Some(1), "hello", 5, 6, 7)
   inspect(
-    pretty(tuple),
+    @prettyprinter.pretty(tuple),
     content=(
       #|(1, a, false, 1.5, Some(1), "hello", 5, 6, 7)
     ),
   )
   inspect(
-    render(tuple, width=10),
+    @prettyprinter.render(tuple, width=10),
     content=(
       #|(
       #|  1,

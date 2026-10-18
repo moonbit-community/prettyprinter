@@ -30,7 +30,8 @@ pub impl Show for Context with fn output(self, buf) {
   buf.write_string(self.width.to_string())
   buf.write_string(" }")
 }
-
+///|
+pub extend Context with Show::{to_string, output}
 ///|
 pub fn Context::current_remain(self : Self) -> Requirement {
   Space(@cmp.maximum(0, self.width - self.indent))
@@ -50,7 +51,7 @@ priv struct State {
 
 ///|
 fn render_document(width : Int, doc : Document) -> String {
-  let buf = StringBuilder::new()
+  let buf = StringBuilder()
   let stack = [{ indent: 0, fit: false, doc, }]
   let mut column = 0
   // record the MandatoryLine that has not yet been decided to print
@@ -125,8 +126,11 @@ fn render_document(width : Int, doc : Document) -> String {
 pub impl Show for Document with fn output(self, buf) {
   buf.write_string(render_document(80, self))
 }
-
+///|
+pub extend Document with Show::{to_string, output}
 ///|
 pub impl Add for Document with fn add(self, other) {
   concat(self, other)
 }
+///|
+pub extend Document with Add::{add}

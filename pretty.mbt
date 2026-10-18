@@ -98,7 +98,8 @@ pub impl Pretty for Float with fn pretty(f) {
 pub impl Pretty for Document with fn pretty(doc) {
   doc
 }
-
+///|
+pub extend Document with Pretty::{pretty}
 ///|
 /// Pretty print a unit value.
 pub impl Pretty for Unit with fn pretty(_unit) {
@@ -461,7 +462,7 @@ pub impl[A : Pretty] Pretty for @queue.Queue[A] with fn pretty(queue) {
 }
 
 ///|
-pub impl[A : Pretty + Eq + Compare] Pretty for @priority_queue.PriorityQueue[A] with fn pretty(
+pub impl[A : Pretty + Compare] Pretty for @priority_queue.PriorityQueue[A] with fn pretty(
   queue,
 ) {
   pretty(queue.to_array())
