@@ -53,7 +53,7 @@ pub fn ctor(
   ty? : String,
   ctor : String,
   payloads : Array[Document],
-  labeled? : Map[String, Document] = {},
+  labeled~ : Map[String, Document] = {},
 ) -> Document {
   let pkg = match pkg {
     None => empty

@@ -19,7 +19,7 @@ pub fn[A : Pretty] pretty(x : A) -> Document {
 /// # Returns
 ///
 /// The rendered string.
-pub fn[A : Pretty] render(document : A, width? : Int = 80) -> String {
+pub fn[A : Pretty] render(document : A, width~ : Int32 = 80) -> String {
   render_document(width, document.pretty())
 }
 
@@ -47,7 +47,7 @@ pub impl Pretty for Int16 with fn pretty(i) {
 
 ///|
 /// Pretty print an Int.
-pub impl Pretty for Int with fn pretty(i) {
+pub impl Pretty for Int32 with fn pretty(i) {
   text(i.to_string())
 }
 
@@ -65,7 +65,7 @@ pub impl Pretty for UInt16 with fn pretty(i) {
 
 ///|
 /// Pretty print a UInt.
-pub impl Pretty for UInt with fn pretty(i) {
+pub impl Pretty for UInt32 with fn pretty(i) {
   text(i.to_string())
 }
 
@@ -98,8 +98,10 @@ pub impl Pretty for Float with fn pretty(f) {
 pub impl Pretty for Document with fn pretty(doc) {
   doc
 }
+
 ///|
 pub extend Document with Pretty::{pretty}
+
 ///|
 /// Pretty print a unit value.
 pub impl Pretty for Unit with fn pretty(_unit) {
