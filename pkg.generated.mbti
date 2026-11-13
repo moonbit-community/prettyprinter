@@ -6,6 +6,7 @@ import {
   "moonbitlang/core/buffer",
   "moonbitlang/core/deque",
   "moonbitlang/core/immut/vector",
+  "moonbitlang/core/json",
   "moonbitlang/core/list",
   "moonbitlang/core/priority_queue",
   "moonbitlang/core/queue",
@@ -41,7 +42,7 @@ pub let mandatory_line : Document
 
 pub let mandatory_space : Document
 
-pub fn nest(indent? : Int, Document) -> Document
+pub fn nest(indent? : Int32, Document) -> Document
 
 pub fn parens(Document) -> Document
 
@@ -49,7 +50,7 @@ pub fn[A : Pretty] pretty(A) -> Document
 
 pub fn record(pkg? : String, ty? : String, Map[String, Document]) -> Document
 
-pub fn[A : Pretty] render(A, width? : Int) -> String
+pub fn[A : Pretty] render(A, width? : Int32) -> String
 
 pub fn separate(Document, Array[Document]) -> Document
 
@@ -73,9 +74,9 @@ pub fn tuple(Array[Document]) -> Document
 
 // Types and methods
 pub struct Context {
-  indent : Int
-  next_indent : Int
-  width : Int
+  indent : Int32
+  next_indent : Int32
+  width : Int32
 }
 pub fn Context::current_remain(Self) -> Requirement
 pub fn Context::next_remain(Self) -> Requirement
@@ -94,11 +95,11 @@ pub impl Add for Document
 pub impl Show for Document
 
 pub(all) enum Requirement {
-  Space(Int)
+  Space(Int32)
   Infinite
 }
 pub fn Requirement::add(Self, Self) -> Self
-pub fn Requirement::compare(Self, Self) -> Int
+pub fn Requirement::compare(Self, Self) -> Int32
 pub fn Requirement::equal(Self, Self) -> Bool
 pub fn Requirement::not_equal(Self, Self) -> Bool
 pub fn Requirement::op_ge(Self, Self) -> Bool
@@ -122,17 +123,16 @@ pub impl Pretty for Unit
 pub impl Pretty for Bool
 pub impl Pretty for Byte
 pub impl Pretty for Char
-pub impl Pretty for Int
+pub impl Pretty for Int32
 pub impl Pretty for Int16
 pub impl Pretty for Int64
-pub impl Pretty for UInt
+pub impl Pretty for UInt32
 pub impl Pretty for UInt16
 pub impl Pretty for UInt64
 pub impl Pretty for Float
 pub impl Pretty for Double
 pub impl Pretty for String
 pub impl[A : Pretty] Pretty for A?
-pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B]
 pub impl[A : Pretty] Pretty for FixedArray[A]
 pub impl Pretty for Bytes
 pub impl Pretty for @bigint.BigInt
@@ -140,8 +140,8 @@ pub impl Pretty for @buffer.Buffer
 pub impl[A : Pretty] Pretty for Array[A]
 pub impl[A : Pretty] Pretty for Iter[A]
 pub impl[A : Pretty, B : Pretty] Pretty for Iter2[A, B]
-pub impl Pretty for Json
 pub impl[A : Pretty, B : Pretty] Pretty for Map[A, B]
+pub impl[A : Pretty, B : Pretty] Pretty for Result[A, B]
 pub impl[A : Pretty] Pretty for @deque.Deque[A]
 pub impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/hashmap.HashMap[A, B]
 pub impl[A : Pretty] Pretty for @moonbitlang/core/hashset.HashSet[A]
@@ -150,6 +150,7 @@ pub impl[A : Pretty] Pretty for @moonbitlang/core/immut/hashset.HashSet[A]
 pub impl[A : Pretty, B : Pretty] Pretty for @moonbitlang/core/immut/sorted_map.SortedMap[A, B]
 pub impl[A : Pretty] Pretty for @moonbitlang/core/immut/sorted_set.SortedSet[A]
 pub impl[A : Pretty] Pretty for @vector.Vector[A]
+pub impl Pretty for @json.Json
 pub impl[A : Pretty] Pretty for @list.List[A]
 pub impl[A : Pretty + Compare] Pretty for @priority_queue.PriorityQueue[A]
 pub impl[A : Pretty] Pretty for @queue.Queue[A]
